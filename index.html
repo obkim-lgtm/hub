@@ -110,12 +110,6 @@
     }
     .card:hover::before { opacity: 1; }
 
-    /* 로컬 전용 카드 — 배포 환경에서 비활성화 */
-    .card.disabled {
-      opacity: 0.45;
-      cursor: default;
-      pointer-events: none;
-    }
 
     .card-top {
       display: flex;
@@ -361,15 +355,6 @@
 
   <footer>obkim-lgtm.github.io/hub</footer>
 
-  <script>
-    // 배포 환경(file:// 아님)에서 로컬 전용 카드 비활성화
-    if (location.protocol !== 'file:') {
-      document.querySelectorAll('[data-local]').forEach(el => {
-        el.classList.add('disabled');
-        el.removeAttribute('href');
-      });
-    }
-  </script>
 
 </body>
 </html>
