@@ -193,6 +193,32 @@
     .clipo    .section-title { color: #416BFF; }
     .personal .section-title { color: #059669; }
 
+    /* 접기 가능한 섹션 (아카이브) */
+    .section.collapsible .section-header { cursor: pointer; user-select: none; }
+    .section.collapsible .section-header:hover .section-title { opacity: .7; }
+    .section-chevron {
+      width: 16px;
+      height: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #9CA3AF;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .section.collapsible.collapsed .section-chevron { transform: rotate(-90deg); }
+    .section.collapsible.collapsed .cards { display: none; }
+    .section.collapsible .section-archive-tag {
+      font-size: 10px;
+      font-weight: 600;
+      color: #9CA3AF;
+      padding: 2px 6px;
+      background: #F3F4F6;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
     footer {
       max-width: 900px;
       margin: 60px auto 0;
@@ -360,12 +386,14 @@
       </div>
     </div>
 
-    <!-- ④ Personal -->
-    <div class="section personal">
+    <!-- ④ Personal (접힘) -->
+    <div class="section personal collapsible collapsed" onclick="this.classList.toggle('collapsed')">
       <div class="section-header">
         <div class="section-dot"></div>
         <div class="section-title">Personal</div>
+        <span class="section-archive-tag">Archive</span>
         <div class="section-line"></div>
+        <span class="section-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 5 7 9 11 5"/></svg></span>
       </div>
       <div class="cards">
 
