@@ -175,13 +175,13 @@
     .archive  { --accent: #6B7280; --accent-bg: #F3F4F6; }
     .archive .card { opacity: .75; }
     .archive .card:hover { opacity: 1; }
-    details.archive { margin-top: 32px; padding-top: 24px; border-top: 1px dashed #E5E7EB; }
-    details.archive > summary { list-style: none; cursor: pointer; user-select: none; }
-    details.archive > summary::-webkit-details-marker { display: none; }
+    details.archive, details.personal { margin-top: 32px; padding-top: 24px; border-top: 1px dashed #E5E7EB; }
+    details.archive > summary, details.personal > summary { list-style: none; cursor: pointer; user-select: none; }
+    details.archive > summary::-webkit-details-marker, details.personal > summary::-webkit-details-marker { display: none; }
     .archive-count { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 20px; padding: 0 7px; background: #E5E7EB; color: #6B7280; font-size: 12px; font-weight: 600; border-radius: 10px; margin-left: 4px; }
     .archive-chev { width: 14px; height: 14px; color: #9CA3AF; transition: transform .2s; flex-shrink: 0; }
-    details.archive[open] .archive-chev { transform: rotate(180deg); }
-    details.archive > summary:hover .archive-chev { color: #4B5563; }
+    details.archive[open] .archive-chev, details.personal[open] .archive-chev { transform: rotate(180deg); }
+    details.archive > summary:hover .archive-chev, details.personal > summary:hover .archive-chev { color: #4B5563; }
 
     .internal .section-dot  { background: #EA580C; }
     .hiai     .section-dot  { background: #7E44FB; }
@@ -377,14 +377,14 @@
     </div>
 
     <!-- ④ Personal (접힘) -->
-    <div class="section personal collapsible collapsed" onclick="this.classList.toggle('collapsed')">
-      <div class="section-header">
+    <details class="section personal">
+      <summary class="section-header">
         <div class="section-dot"></div>
         <div class="section-title">Personal</div>
-        <span class="section-archive-tag">Archive</span>
+        <span class="archive-count">1</span>
         <div class="section-line"></div>
-        <span class="section-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 5 7 9 11 5"/></svg></span>
-      </div>
+        <svg class="archive-chev" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.5 5l3.5 3.5L10.5 5"/></svg>
+      </summary>
       <div class="cards">
 
         <a class="card" href="http://localhost:3000" target="_blank" data-local>
@@ -398,14 +398,14 @@
         </a>
 
       </div>
-    </div>
+    </details>
 
     <!-- 아카이브 (별도 영역, 접힘 기본) -->
     <details class="section archive">
       <summary class="section-header archive-header">
         <div class="section-dot"></div>
         <div class="section-title">아카이브</div>
-        <span class="archive-count" id="archive-count">2</span>
+        <span class="archive-count" id="archive-count">1</span>
         <div class="section-line"></div>
         <svg class="archive-chev" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.5 5l3.5 3.5L10.5 5"/></svg>
       </summary>
