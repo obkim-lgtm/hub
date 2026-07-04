@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>목업 — AI 채점 옵션 · 빠른 채점 | CLIPO</title>
+<link rel="icon" type="image/png" href="clipo_favicon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov.min.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Pretendard GOV',-apple-system,sans-serif}
+body{background:#f6f7f9;color:#222631;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 24px}
+.wrap{width:100%;max-width:760px}
+.hd{margin-bottom:28px}
+.hd-badge{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:100px;background:#222631;color:#fff;font-size:13px;font-weight:600;margin-bottom:14px}
+.hd-badge i{width:14px;height:14px}
+h1{font-size:26px;font-weight:600;color:#222631;line-height:1.3;margin-bottom:8px}
+.hd-sub{font-size:16px;color:#6d7381;line-height:1.6}
+.flow{display:flex;flex-direction:column;gap:14px}
+.card{display:flex;align-items:flex-start;gap:16px;background:#fff;border:1px solid #dde1e8;border-radius:12px;padding:22px 24px;text-decoration:none;transition:border-color .12s,box-shadow .12s;position:relative}
+.card:hover{border-color:#416bff;box-shadow:0 4px 16px rgba(65,107,255,.10)}
+.card-num{flex-shrink:0;width:34px;height:34px;border-radius:8px;background:#365eef;color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700}
+.card-body{flex:1;min-width:0}
+.card-title{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:600;color:#222631;margin-bottom:6px}
+.card-tag{font-size:12px;font-weight:600;border-radius:100px;padding:2px 8px;background:#fff3e8;color:#f97316;white-space:nowrap}
+.card-desc{font-size:15px;color:#6d7381;line-height:1.6}
+.card-arrow{flex-shrink:0;color:#b3b6bd;margin-top:4px}
+.card:hover .card-arrow{color:#416bff}
+.flow-connector{display:flex;align-items:center;gap:8px;padding-left:39px;color:#9ea3ad;font-size:13px;font-weight:500}
+.flow-connector i{width:14px;height:14px}
+.note{margin-top:26px;display:flex;align-items:flex-start;gap:8px;font-size:14px;color:#6d7381;line-height:1.6}
+.note i{width:15px;height:15px;flex-shrink:0;margin-top:3px}
+/* 목업 데모 내비 */
+.kk-nav{position:fixed;left:16px;bottom:16px;z-index:2000;display:flex;align-items:center;gap:2px;background:#222631;border-radius:100px;padding:5px 6px;box-shadow:0 4px 16px rgba(0,0,0,.25)}
+.kk-nav a{display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 12px;border-radius:100px;font-size:13px;font-weight:500;color:rgba(255,255,255,.65);text-decoration:none;white-space:nowrap}
+.kk-nav a:hover{color:#fff}
+.kk-nav a.on{background:rgba(255,255,255,.16);color:#fff}
+.kk-nav a i{width:14px;height:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hd">
+    <span class="hd-badge"><i data-lucide="layout-grid"></i>목업</span>
+    <h1>AI 채점 옵션 · 빠른 채점</h1>
+    <div class="hd-sub">"AI 생성 결과가 너무 길다" 피드백 반영 — 채점 실행 시 옵션을 고르고, 요약만 보며 빠르게 채점하는 흐름이에요.</div>
+  </div>
+
+  <div class="flow">
+    <a class="card" href="scoring_run_modal_v3_260704.html">
+      <span class="card-num">1</span>
+      <div class="card-body">
+        <div class="card-title">채점 실행 옵션</div>
+        <div class="card-desc">채점 모드(표준/빠른) · 채점 모델 · 점수 수준 · 학생 피드백 구성 · 이전 채점 결과 참고를 실행 시점에 선택해요.</div>
+      </div>
+      <i data-lucide="chevron-right" class="card-arrow" style="width:20px;height:20px"></i>
+    </a>
+
+    <div class="flow-connector"><i data-lucide="corner-down-right"></i>빠른 채점으로 실행하면</div>
+
+    <a class="card" href="scoring_student_quick_v1_260704.html">
+      <span class="card-num">2</span>
+      <div class="card-body">
+        <div class="card-title">학생 채점 결과 상세 <span class="card-tag">빠른 채점</span></div>
+        <div class="card-desc">총평 1문장 + 채점요소별 한 줄 근거만 보고 Enter로 넘기는 화면. 표준 모드 비교 토글도 들어 있어요.</div>
+      </div>
+      <i data-lucide="chevron-right" class="card-arrow" style="width:20px;height:20px"></i>
+    </a>
+
+    <div class="flow-connector"><i data-lucide="corner-down-right"></i>점수가 기대와 다르면</div>
+
+    <a class="card" href="scoring_student_quick_v1_260704.html?rerun=1">
+      <span class="card-num">3</span>
+      <div class="card-body">
+        <div class="card-title">채점 재실행 팝업</div>
+        <div class="card-desc">일부 채점요소만 다시 채점 · 점수 수준 · AI에게 전달할 요청(기대 점수 제시, 문항 의도 보충, 기준 해석 교정). "10점 대신 5점" 요청이 결과에 반영되는 데모예요.</div>
+      </div>
+      <i data-lucide="chevron-right" class="card-arrow" style="width:20px;height:20px"></i>
+    </a>
+
+    <div class="flow-connector"><i data-lucide="corner-down-right"></i>표준 채점으로 실행하면 (비교용)</div>
+
+    <a class="card" href="scoring_student_quick_v1_260704.html?mode=std">
+      <span class="card-num">4</span>
+      <div class="card-body">
+        <div class="card-title">학생 채점 결과 상세 <span class="card-tag" style="background:#eef4ff;color:#416bff">표준 채점</span></div>
+        <div class="card-desc">긴 채점 근거 3문단 + 긴 AI 피드백 + 선생님 직접 피드백까지 있는 기존 구성. 빠른 결과와 나란히 비교할 때 써요.</div>
+      </div>
+      <i data-lucide="chevron-right" class="card-arrow" style="width:20px;height:20px"></i>
+    </a>
+
+    <div class="flow-connector"><i data-lucide="corner-down-right"></i>학급 전체 점수를 맞춰보려면</div>
+
+    <a class="card" href="scoring_consistency_v1_260704.html">
+      <span class="card-num">5</span>
+      <div class="card-body">
+        <div class="card-title">채점 일관성 검토 <span class="card-tag" style="background:#f2fbf6;color:#1f8a54">신규</span></div>
+        <div class="card-desc">유사한 답안끼리 묶어 점수를 비교 — "유사도 92%인데 점수가 다른" 쌍을 나란히 보고 바로 조정. 채점요소별 점수 비교표로 같은 급간 답안을 급간 기준과 함께 확인해요.</div>
+      </div>
+      <i data-lucide="chevron-right" class="card-arrow" style="width:20px;height:20px"></i>
+    </a>
+  </div>
+
+  <div class="note">
+    <i data-lucide="info"></i>
+    <span>기존 CLIPO 목업 흐름과 독립된 데모 묶음이에요. 각 화면 좌측 하단의 목업 내비로 서로 이동할 수 있어요.</span>
+  </div>
+</div>
+
+<!-- 목업 데모 내비 -->
+<div class="kk-nav">
+  <a href="kkamangi_hub_260704.html" class="on" title="목업 홈"><i data-lucide="layout-grid"></i>목업</a>
+  <a href="scoring_run_modal_v3_260704.html">① 실행 옵션</a>
+  <a href="scoring_student_quick_v1_260704.html">② 빠른 결과</a>
+  <a href="scoring_student_quick_v1_260704.html?rerun=1">③ 재실행 팝업</a>
+  <a href="scoring_student_quick_v1_260704.html?mode=std">④ 표준 결과</a>
+  <a href="scoring_consistency_v1_260704.html">⑤ 일관성 검토</a>
+</div>
+<script>lucide.createIcons()</script>
+</body>
+</html>

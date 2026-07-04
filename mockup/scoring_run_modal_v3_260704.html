@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>AI 채점 실행 (1/2) — 채점 옵션 v3 — CLIPO</title>
+<link rel="icon" type="image/png" href="clipo_favicon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov.min.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard GOV',-apple-system,sans-serif;color:#222631;background:rgba(0,0,0,0.45);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+
+  .modal{background:#fff;border-radius:12px;width:560px;max-width:calc(100vw - 48px);box-shadow:0 20px 60px rgba(0,0,0,0.25);max-height:calc(100vh - 48px);display:flex;flex-direction:column}
+  .modal-hd{position:relative;padding:24px 24px 16px 24px}
+  .modal-title{font-size:18px;font-weight:600;color:#222631;line-height:1.25}
+  .modal-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border:0;background:transparent;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;line-height:1;color:#6d7381}
+  .modal-close:hover{background:#f1f3f5}
+
+  .modal-body{padding:0 24px 8px 24px;display:flex;flex-direction:column;gap:24px;overflow:auto}
+
+  .field{display:flex;flex-direction:column;gap:12px}
+  .field-label{display:inline-flex;align-items:center;gap:6px;font-size:16px;font-weight:600;color:#222631;line-height:1.25}
+  .field-sub{font-size:14px;font-weight:400;color:#6d7381;line-height:1.5;margin-top:-6px}
+  .help-icon{width:18px;height:18px;color:#6d7381;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+  .help-icon:hover{color:#416bff}
+
+  /* ── 채점 모드 카드 ── */
+  .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .mode-card{position:relative;display:flex;flex-direction:column;gap:8px;padding:14px 16px;border:1px solid #dde1e8;border-radius:8px;background:#fff;cursor:pointer;transition:border-color .12s,background .12s}
+  .mode-card:hover{border-color:#b3c6ff}
+  .mode-card.selected{border-color:#416bff;background:#f6f9ff}
+  .mode-card-top{display:flex;align-items:center;gap:8px}
+  .mode-icon{width:20px;height:20px;color:#6d7381;flex-shrink:0}
+  .mode-card.selected .mode-icon{color:#416bff}
+  .mode-name{font-size:16px;font-weight:600;color:#222631;line-height:1.25}
+  .mode-tag{margin-left:auto;font-size:12px;font-weight:600;border-radius:9999px;padding:2px 8px;line-height:1.3;white-space:nowrap}
+  .mode-tag.t-share{background:#eef4ff;color:#416bff}
+  .mode-tag.t-fast{background:#fff3e8;color:#f97316}
+  .mode-desc{font-size:14px;font-weight:400;color:#6d7381;line-height:1.5}
+  .mode-check{position:absolute;top:-7px;right:-7px;width:20px;height:20px;border-radius:50%;background:#416bff;color:#fff;display:none;align-items:center;justify-content:center}
+  .mode-card.selected .mode-check{display:flex}
+
+  /* ── 채점 모델 라디오 행 ── */
+  .model-list{display:flex;flex-direction:column;gap:8px}
+  .model-row{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border:1px solid #dde1e8;border-radius:8px;cursor:pointer;transition:border-color .12s,background .12s}
+  .model-row:hover{border-color:#b3c6ff}
+  .model-row.selected{border-color:#416bff;background:#f6f9ff}
+  .ring{width:20px;height:20px;border-radius:50%;background:#fff;border:1.5px solid #c7cbd3;flex-shrink:0;margin-top:1px}
+  .model-row.selected .ring,.radio-row.selected .ring{border:6.5px solid #365eef}
+  .model-txt{display:flex;flex-direction:column;gap:3px;min-width:0}
+  .model-name{display:inline-flex;align-items:center;gap:6px;font-size:16px;font-weight:600;color:#222631;line-height:1.25}
+  .model-badge{font-size:12px;font-weight:600;border-radius:9999px;padding:2px 8px;line-height:1.3;background:#eef4ff;color:#416bff}
+  .model-desc{font-size:14px;font-weight:400;color:#6d7381;line-height:1.5}
+
+  /* ── 점수 수준 슬라이더 ── */
+  .slider-wrap{padding:0 24px;display:flex;flex-direction:column}
+  .slider-bar{position:relative;height:10px;border-radius:9999px;background:#dde1e8;box-shadow:inset 0 0 0 1px rgba(9,9,11,0.05);cursor:pointer}
+  .slider-fill{position:absolute;left:0;top:0;bottom:0;width:50%;background:#365eef;border-radius:9999px;transition:width .15s}
+  .slider-thumb{position:absolute;top:50%;left:50%;width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid #365eef;transform:translate(-50%,-50%);box-shadow:0 1px 4px rgba(0,0,0,0.15);transition:left .15s}
+  .slider-marks{display:flex;justify-content:space-between;align-items:flex-start;margin-top:8px}
+  .slider-mark{font-size:14px;font-weight:500;color:#6d7381;white-space:nowrap;line-height:1.25;cursor:pointer}
+  .slider-mark.on{color:#365eef;font-weight:500}
+
+  /* ── 학생 피드백 구성 ── */
+  .radio-list{display:flex;flex-direction:column;gap:12px;padding-top:2px}
+  .radio-row{display:flex;align-items:center;gap:10px;cursor:pointer}
+  .radio-row .ring{margin-top:0}
+  .radio-row .lbl{font-size:16px;font-weight:500;color:#222631;line-height:1.25}
+  .radio-row.fb-auto{width:100%}
+  .fb-select{flex:1;min-width:0;height:40px;padding:0 12px;border:1px solid #dde1e8;border-radius:6px;font-family:inherit;font-size:15px;color:#222631;background:#fff;cursor:pointer}
+  .fb-select:disabled{background:#f6f7f9;color:#9ea3ad;cursor:not-allowed}
+
+  .field.is-off .field-label,.field.is-off .radio-list{opacity:.45;pointer-events:none}
+  .fb-off-note{display:none;align-items:flex-start;gap:8px;padding:10px 12px;border-radius:8px;background:#f6f7f9;font-size:14px;color:#3b3f4c;line-height:1.5}
+  .field.is-off .fb-off-note{display:flex}
+  .fb-off-note i{width:16px;height:16px;color:#6d7381;flex-shrink:0;margin-top:2px}
+
+  /* ── 이전 채점 결과 참고 ── */
+  .switch-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .switch{position:relative;width:44px;height:24px;border-radius:9999px;background:#c7cbd3;cursor:pointer;transition:background .15s;flex-shrink:0}
+  .switch::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transition:left .15s}
+  .switch.on{background:#365eef}
+  .switch.on::after{left:22px}
+  .ref-body{display:none;flex-direction:column;gap:8px}
+  .ref-body.open{display:flex}
+
+  /* Footer */
+  .modal-ft{padding:8px 24px 16px 24px;display:flex;justify-content:flex-end}
+  .btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:10px 16px;border-radius:4px;font-family:inherit;font-size:15px;font-weight:500;line-height:1;cursor:pointer;border:0;background:#365eef;color:#fff}
+  .btn-primary:hover{background:#2c4ed8}
+
+  /* 까망이 데모 내비 */
+  .kk-nav{position:fixed;left:16px;bottom:16px;z-index:2000;display:flex;align-items:center;gap:2px;background:#222631;border-radius:100px;padding:5px 6px;box-shadow:0 4px 16px rgba(0,0,0,.25)}
+  .kk-nav a{display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 12px;border-radius:100px;font-size:13px;font-weight:500;color:rgba(255,255,255,.65);text-decoration:none;white-space:nowrap}
+  .kk-nav a:hover{color:#fff}
+  .kk-nav a.on{background:rgba(255,255,255,.16);color:#fff}
+  .kk-nav a i{width:14px;height:14px}
+</style>
+</head>
+<body>
+
+<div class="modal">
+  <div class="modal-hd">
+    <div class="modal-title">AI 채점 실행 (1/2)</div>
+    <button class="modal-close" title="닫기" onclick="location.href='kkamangi_hub_260704.html'"><i data-lucide="x" style="width:18px;height:18px"></i></button>
+  </div>
+
+  <div class="modal-body">
+
+    <!-- ① 채점 모드 -->
+    <div class="field">
+      <span class="field-label">채점 모드</span>
+      <div class="field-sub">채점 결과를 어떤 구성으로 생성할지 정해요.</div>
+      <div class="mode-grid">
+        <div class="mode-card selected" id="mode-standard" onclick="selectMode('standard')">
+          <span class="mode-check"><i data-lucide="check" style="width:12px;height:12px"></i></span>
+          <div class="mode-card-top">
+            <i data-lucide="clipboard-list" class="mode-icon"></i>
+            <span class="mode-name">표준 채점</span>
+            <span class="mode-tag t-share">학생 공개용</span>
+          </div>
+          <div class="mode-desc">채점 근거와 학생 피드백까지 자세히 생성해요.</div>
+        </div>
+        <div class="mode-card" id="mode-quick" onclick="selectMode('quick')">
+          <span class="mode-check"><i data-lucide="check" style="width:12px;height:12px"></i></span>
+          <div class="mode-card-top">
+            <i data-lucide="zap" class="mode-icon"></i>
+            <span class="mode-name">빠른 채점</span>
+            <span class="mode-tag t-fast">선생님 확인용</span>
+          </div>
+          <div class="mode-desc">점수와 한눈에 읽히는 요약 근거만 생성해요.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ② 채점 모델 -->
+    <div class="field">
+      <span class="field-label">채점 모델</span>
+      <div class="model-list">
+        <div class="model-row selected" onclick="selectModel(this)">
+          <div class="ring"></div>
+          <div class="model-txt">
+            <span class="model-name">표준 모델 v3.2 <span class="model-badge">권장</span></span>
+            <span class="model-desc">대부분의 평가에 알맞아요. 속도와 정확도가 균형 잡힌 기본 모델이에요.</span>
+          </div>
+        </div>
+        <div class="model-row" onclick="selectModel(this)">
+          <div class="ring"></div>
+          <div class="model-txt">
+            <span class="model-name">정밀 모델 v3.2 Pro</span>
+            <span class="model-desc">긴 서술형·심화 평가에 강해요. 채점에 시간이 조금 더 걸려요.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ③ 점수 수준 -->
+    <div class="field">
+      <span class="field-label">점수 수준</span>
+      <div class="field-sub">채점요소별 점수를 얼마나 높게 또는 낮게 줄지 정해요.</div>
+      <div class="slider-wrap">
+        <div class="slider-bar" onclick="sliderClick(event,this)">
+          <div class="slider-fill" id="slider-fill"></div>
+          <div class="slider-thumb" id="slider-thumb"></div>
+        </div>
+        <div class="slider-marks">
+          <span class="slider-mark" onclick="setSlider(0)">점수 높게</span>
+          <span class="slider-mark on" onclick="setSlider(1)">표준</span>
+          <span class="slider-mark" onclick="setSlider(2)">점수 낮게</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ④ 학생 피드백 구성 (빠른 채점 시 비활성) -->
+    <div class="field" id="fb-field">
+      <span class="field-label">
+        학생 피드백 구성
+        <span class="help-icon"><i data-lucide="circle-help" style="width:18px;height:18px"></i></span>
+      </span>
+      <div class="radio-list">
+        <div class="radio-row" onclick="selectFb(this)">
+          <div class="ring"></div>
+          <div class="lbl">선생님이 직접 작성</div>
+        </div>
+        <div class="radio-row fb-auto selected" onclick="selectFb(this)">
+          <div class="ring"></div>
+          <div class="lbl" style="flex-shrink:0">자동 구성</div>
+          <select class="fb-select" onclick="event.stopPropagation()">
+            <option>채점 근거 기반 자동 구성</option>
+            <option>AI 피드백 기반 자동 구성</option>
+            <option selected>채점 근거 + 피드백 기반 자동 구성</option>
+          </select>
+        </div>
+      </div>
+      <div class="fb-off-note">
+        <i data-lucide="info"></i>
+        <span>빠른 채점에서는 학생 피드백을 만들지 않아요. 채점을 마친 뒤 필요할 때 결과 화면에서 따로 생성할 수 있어요.</span>
+      </div>
+    </div>
+
+    <!-- ⑤ 이전 채점 결과 참고 -->
+    <div class="field">
+      <div class="switch-row">
+        <span class="field-label">
+          이전 채점 결과 참고
+          <span class="help-icon"><i data-lucide="circle-help" style="width:18px;height:18px"></i></span>
+        </span>
+        <div class="switch" id="ref-switch" onclick="toggleRef()"></div>
+      </div>
+      <div class="field-sub">먼저 채점한 학급의 점수 기준(선생님이 수정한 결과 포함)에 맞춰 이번 채점의 일관성을 유지해요.</div>
+      <div class="ref-body" id="ref-body">
+        <select class="fb-select" style="width:100%">
+          <option selected>2반 · 채점 완료 (26명, 7/1 채점)</option>
+          <option>5반 · 채점 완료 (25명, 6/28 채점)</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal-ft">
+    <button class="btn-primary" onclick="location.href='scoring_student_quick_v1_260704.html'">
+      다음으로 <i data-lucide="chevron-right" style="width:20px;height:20px"></i>
+    </button>
+  </div>
+</div>
+
+<!-- 목업 데모 내비 -->
+<div class="kk-nav">
+  <a href="kkamangi_hub_260704.html" title="목업 홈"><i data-lucide="layout-grid"></i>목업</a>
+  <a href="scoring_run_modal_v3_260704.html" class="on">① 실행 옵션</a>
+  <a href="scoring_student_quick_v1_260704.html">② 빠른 결과</a>
+  <a href="scoring_student_quick_v1_260704.html?rerun=1">③ 재실행 팝업</a>
+  <a href="scoring_student_quick_v1_260704.html?mode=std">④ 표준 결과</a>
+  <a href="scoring_consistency_v1_260704.html">⑤ 일관성 검토</a>
+</div>
+
+<script>
+  // ── 채점 모드 ──
+  function selectMode(mode){
+    document.getElementById('mode-standard').classList.toggle('selected', mode==='standard');
+    document.getElementById('mode-quick').classList.toggle('selected', mode==='quick');
+    document.getElementById('fb-field').classList.toggle('is-off', mode==='quick');
+  }
+
+  // ── 채점 모델 ──
+  function selectModel(el){
+    el.closest('.model-list').querySelectorAll('.model-row').forEach(function(r){ r.classList.remove('selected'); });
+    el.classList.add('selected');
+  }
+
+  // ── 점수 수준 슬라이더 (3단) ──
+  function setSlider(idx){
+    var pct = [0,50,100][idx];
+    document.getElementById('slider-fill').style.width = pct + '%';
+    document.getElementById('slider-thumb').style.left = pct + '%';
+    document.querySelectorAll('.slider-mark').forEach(function(m,i){ m.classList.toggle('on', i===idx); });
+  }
+  function sliderClick(ev,bar){
+    var r = bar.getBoundingClientRect();
+    var ratio = (ev.clientX - r.left) / r.width;
+    setSlider(ratio < 1/3 ? 0 : ratio < 2/3 ? 1 : 2);
+  }
+
+  // ── 학생 피드백 구성 ──
+  function selectFb(el){
+    var list = el.closest('.radio-list');
+    list.querySelectorAll('.radio-row').forEach(function(r){ r.classList.remove('selected'); });
+    el.classList.add('selected');
+    var autoRow = list.querySelector('.fb-auto');
+    autoRow.querySelector('.fb-select').disabled = !autoRow.classList.contains('selected');
+  }
+
+  // ── 이전 채점 결과 참고 ──
+  function toggleRef(){
+    var sw = document.getElementById('ref-switch');
+    sw.classList.toggle('on');
+    document.getElementById('ref-body').classList.toggle('open', sw.classList.contains('on'));
+  }
+
+  if(window.lucide) lucide.createIcons();
+</script>
+
+</body>
+</html>
