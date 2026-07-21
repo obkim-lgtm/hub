@@ -40,6 +40,37 @@
       color: #6B7280;
       margin-top: 6px;
     }
+    .header-titlerow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .trellis-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      vertical-align: middle;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+      background: #fff;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      padding: 9px 13px;
+      text-decoration: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,.04);
+      transition: border-color .15s, box-shadow .15s;
+      white-space: nowrap;
+    }
+    .trellis-btn:hover {
+      border-color: #111827;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    .trellis-btn .tb-emoji { font-size: 14px; }
 
     .main {
       max-width: 900px;
@@ -254,7 +285,12 @@
 
   <div class="header">
     <div class="header-eyebrow">Workspace</div>
-    <div class="header-title">프로젝트 바로가기</div>
+    <div class="header-titlerow">
+      <div class="header-title">프로젝트 바로가기</div>
+      <a class="trellis-btn" href="http://127.0.0.1:8735/" target="_blank" rel="noopener" title="Trellis 뷰어 (내 PC에서 trellis serve 실행 중일 때 열림)">
+        <span class="tb-emoji">🗂️</span> Trellis 뷰어
+      </a>
+    </div>
     <div class="header-sub">만든 것들을 빠르게 찾을 수 있어요</div>
   </div>
 
