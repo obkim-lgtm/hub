@@ -4,9 +4,11 @@
 
 ## 배포 정보
 
+> 경로는 작업 디렉토리(`내 드라이브\Claude`) 기준 상대경로로 적는다. 드라이브 문자는 PC마다 다름 (현재 PC: `F:`).
+
 | 항목 | 값 |
 |------|-----|
-| 소스 | `G:\내 드라이브\Claude\_hub\index.html` |
+| 소스 | `_hub\index.html` |
 | GitHub repo | `obkim-lgtm/hub` (public) |
 | 호스팅 | GitHub Pages |
 | 배포 URL | https://obkim-lgtm.github.io/hub/ |
@@ -59,7 +61,7 @@
 ## 배포 명령
 
 ```bash
-cd "/g/내 드라이브/Claude/_hub"
+cd _hub
 git add index.html
 git -c user.name="obkim-lgtm" -c user.email="ob.kim@datadriven.kr" \
   commit -m "허브: <카드명> 추가"
@@ -80,6 +82,6 @@ GitHub Pages가 push 후 자동 배포. 약 30초 후 https://obkim-lgtm.github.
 
 ## 관련 지침
 
-루트 CLAUDE.md (`G:\내 드라이브\Claude\CLAUDE.md`)에도 짧은 요약 있음:
+루트 `CLAUDE.md`에도 짧은 요약 있음:
 - 새 프로젝트 시 hub 카드 추가
 - HIAI/CLIPO 목업은 추가 전에 사용자에게 먼저 확인
