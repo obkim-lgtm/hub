@@ -33,9 +33,8 @@
 | BENCH A | 사내 도구 | `.internal` | `#EA580C` | 사내 Gitea·dd-mac 앱 |
 | BENCH B | AI 서·논술형 평가지원시스템 | `.hiai` | `#7E44FB` | HIAI 목업 |
 | BENCH C | CLIPO · 26년 하반기 | `.clipo` | `#416BFF` | CLIPO 목업 |
-| BENCH C′ | CLIPO · 다음 차례 | `.clipo` | `#416BFF` | CLIPO 추후 목업 |
-| SIDE | 업무 밖 실험 (접힘) | `.personal` | `#059669` | 개인 프로젝트 |
-| STORAGE | 보관함 (접힘) | `.archive` | `#6B7280` | 아카이브 |
+| STORAGE | 보관함 (접힘) | `.archive` | `#6B7280` | 끝났거나 반영 못 하는 실험(구 '추후' 목업 포함) |
+| SIDE | 업무 밖 실험 (접힘) | `.personal` | `#059669` | 개인 프로젝트 — 항상 맨 마지막 |
 
 ## 카드 추가 방법
 
