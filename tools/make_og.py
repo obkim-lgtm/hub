@@ -90,21 +90,19 @@ def og(path):
     d.rectangle([L, 552 * S, W - L, 552 * S + 3 * S], fill=INK)
     d.text((L, 572 * S), "obkim-lgtm.github.io/hub", font=font(FONT_R, 22, S), fill=FAINT)
 
-    # flask (header SVG, scaled)
-    k = 2.7 * S
-    ox, oy = 842 * S, 150 * S
+    # flask — 파비콘과 같은 결(굵은 외곽선·진한 액체·파랑/보라 거품)
+    k = 2.55 * S
+    ox, oy = 846 * S, 168 * S
     P = lambda pts: [(ox + px * k, oy + py * k) for px, py in pts]
-    d.polygon(P(liquid_poly()), fill=GREEN + (41,))
-    d.line(P([(25.6, 84), (86.4, 84)]), fill=GREEN, width=int(2.5 * k))
-    for (bx, by, br, col) in [(50, 100, 4.5, BLUE), (62, 70, 3.4, PURPLE), (55, 38, 2.8, ORANGE), (60, 12, 2.2, BLUE), (52, -8, 1.8, PURPLE)]:
+    d.polygon(P(liquid_poly()), fill=GREEN + (72,))
+    d.line(P([(25.6, 84), (86.4, 84)]), fill=GREEN, width=int(5 * k))
+    for (bx, by, br, col, a) in [(52, 64, 7, BLUE, 217), (62, 102, 5.5, PURPLE, 217), (58, 20, 3.5, BLUE, 150), (50, -10, 2.6, PURPLE, 110)]:
         cx, cy, rr = ox + bx * k, oy + by * k, br * k
-        d.ellipse([cx - rr, cy - rr, cx + rr, cy + rr], fill=col)
-    d.line(P(flask_outline()), fill=INK, width=int(3 * k), joint="curve")
-    d.line(P([(40, 8), (72, 8)]), fill=INK, width=int(3 * k))
-    for (ax, ay, bx2, by2) in [(50, 22, 58, 22), (50, 34, 62, 34)]:
-        d.line(P([(ax, ay), (bx2, by2)]), fill=INK + (90,), width=int(2 * k))
-    for (ax, ay) in [(40, 8), (72, 8)]:
-        cx, cy, rr = ox + ax * k, oy + ay * k, 1.5 * k
+        d.ellipse([cx - rr, cy - rr, cx + rr, cy + rr], fill=col + (a,))
+    d.line(P(flask_outline()), fill=INK, width=int(7 * k), joint="curve")
+    d.line(P([(38, 8), (74, 8)]), fill=INK, width=int(7 * k))
+    for (ax, ay) in [(38, 8), (74, 8), (45, 44), (67, 44)]:
+        cx, cy, rr = ox + ax * k, oy + ay * k, 3.5 * k
         d.ellipse([cx - rr, cy - rr, cx + rr, cy + rr], fill=INK)
 
     img = img.resize((1200, 630), Image.LANCZOS)
