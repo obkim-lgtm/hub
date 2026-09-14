@@ -566,31 +566,25 @@
       <p class="bench-desc">팀이 실제로 매일 쓰는 대시보드와 캘린더예요. 회사 네트워크에서만 열려요.</p>
       <div class="cards">
 
-        <a class="card" href="http://192.168.50.76:8081/" target="_blank" rel="noopener" data-src="clipo_traffic_analysis:data/training_roi_260910" data-created="2026-09-10" data-updated="2026-09-14">
+        <a class="card" data-order="2" href="http://192.168.50.76:8081/" target="_blank" rel="noopener" data-src="clipo_traffic_analysis:data/training_roi_260910" data-created="2026-09-10" data-updated="2026-09-14">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
           <div class="card-head"><div class="card-icon">🧑‍🏫</div><div class="card-name">CLIPO 연수 강사 현황</div></div>
           <ul class="card-desc"><li>선생님이 직접 여는 CLIPO 연수 현황</li><li>가입·사용·매출로 이어졌는지 지역·강사별 확인</li><li>강사별 관리 메모 기록</li></ul>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-analytics/pulse.html" target="_blank" rel="noopener" data-src="clipo_analytics:pulse.json" data-created="2026-09-03" data-updated="2026-09-14" data-live="매일 자동 갱신">
+        <a class="card" data-order="1" href="https://internal-tool.pages.ddapp.io/clipo-analytics/pulse.html" target="_blank" rel="noopener" data-src="clipo_analytics:pulse.json" data-created="2026-09-03" data-updated="2026-09-14" data-live="매일 자동 갱신">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
           <div class="card-head"><div class="card-icon">📊</div><div class="card-name">CLIPO 주요 지표 대시보드</div></div>
           <ul class="card-desc"><li>유입·활성·재방문·매출 흐름을 차트로 확인</li><li>지역·학교급 필터, 전년 같은 달과 비교</li><li>매일 아침 자동 갱신</li></ul>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-analytics/usage.html#s0-check" target="_blank" rel="noopener" data-src="clipo_analytics:usage.html" data-created="2026-08-02" data-updated="2026-09-02">
-          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon">🩺</div><div class="card-name">CLIPO 주요 지표 점검</div></div>
-          <ul class="card-desc"><li>로그인·AI 사용·유료 전환 3가지로 서비스 상태 판정</li><li>월 단위, 계절 영향 걷어낸 기준</li></ul>
-          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
-        </a>
 
         <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-analytics/usage.html" target="_blank" rel="noopener" data-src="clipo_analytics:usage.html" data-created="2026-08-02" data-updated="2026-09-02">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
           <div class="card-head"><div class="card-icon">📈</div><div class="card-name">CLIPO 이용 분석 리포트</div></div>
-          <ul class="card-desc"><li>첫 방문부터 유료 갱신까지 선생님 이용 여정</li><li>유입·활성·기능 정착·유료 4개 장</li></ul>
+          <ul class="card-desc"><li>첫 방문부터 유료 갱신까지 선생님 이용 여정</li><li>0장 주요 지표 점검으로 서비스 상태 먼저 판정</li><li>유입·활성·기능 정착·유료 4개 장</li></ul>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
@@ -919,6 +913,8 @@
   document.querySelectorAll('.cards').forEach(function (grid) {
     var list = Array.prototype.slice.call(grid.children);
     list.sort(function (a, b) {
+      var oa = Number(a.dataset.order) || 999, ob = Number(b.dataset.order) || 999;
+      if (oa !== ob) return oa - ob;
       var la = a.dataset.live ? 1 : 0, lb = b.dataset.live ? 1 : 0;
       if (la !== lb) return lb - la;
       return (b.dataset.updated || '').localeCompare(a.dataset.updated || '');
