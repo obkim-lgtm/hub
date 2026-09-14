@@ -19,7 +19,7 @@ ROOT = os.path.dirname(HUB)  # 내 드라이브/Claude
 INDEX = os.path.join(HUB, "index.html")
 SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv"}
 
-CARD_TAG = re.compile(r'<a class="card"[^>]*>')
+CARD_TAG = re.compile(r'<(?:a|div) class="(?:card|sub-link)[^"]*"[^>]*>')
 SRC_ATTR = re.compile(r'data-src="([^"]+)"')
 UPD_ATTR = re.compile(r'data-updated="[^"]*"')
 

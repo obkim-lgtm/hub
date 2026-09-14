@@ -31,8 +31,7 @@
 | 코드 | 섹션 제목 | class | 컬러 | 용도 |
 |------|-----------|-------|------|------|
 | BENCH A | 사내 도구 | `.internal` | `#EA580C` | 사내 Gitea·dd-mac 앱 |
-| BENCH B | AI 서·논술형 평가지원시스템 | `.hiai` | `#7E44FB` | HIAI 목업 |
-| BENCH C | CLIPO · 26년 하반기 | `.clipo` | `#416BFF` | CLIPO 목업 |
+| BENCH B | 서비스 Mock-up | `.mockups` | 카드별 `.hiai`/`.clipo` | 서비스별 **인덱스 카드 1장씩(총 2장)**. 목업은 카드 안 `.sub-link` 줄로 추가 |
 | STORAGE | 보관함 (접힘) | `.archive` | `#6B7280` | 끝났거나 반영 못 하는 실험(구 '추후' 목업 포함) |
 | SIDE | 업무 밖 실험 (접힘) | `.personal` | `#059669` | 개인 프로젝트 — 항상 맨 마지막 |
 
@@ -50,6 +49,15 @@
 ```
 
 빈 `span`(`exp-no`·`status`·`updated`·`access`)은 JS가 채운다. 직접 쓰지 않는다.
+
+**서비스 Mock-up 벤치는 새 카드를 만들지 않는다.** 해당 서비스 인덱스 카드(`div.card.index-card`) 안 `.sub-list`에 한 줄 추가:
+
+```html
+<a class="sub-link" href="URL" target="_blank" rel="noopener" data-src="clipo_mockup:output/foo.html" data-updated="YYYY-MM-DD"><span class="sub-icon">🌸</span><span class="sub-name">화면 이름</span><span class="sub-date"></span><svg class="sub-arrow" …/></a>
+```
+
+- 카드의 최근 업데이트 = 하위 줄 중 가장 최근 날짜(JS 계산)
+- HIAI 줄은 인덱스 페이지 섹션을 옮긴 것이라 날짜 대신 `sub-note`(일정)를 쓴다
 
 ### 문구 규칙 (2026-09-14)
 
