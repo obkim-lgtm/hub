@@ -3,599 +3,908 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>프로젝트 바로가기</title>
+  <title>올립의 실험실</title>
+  <meta name="description" content="CLIPO와 AI 서·논술형 평가를 기획하며 먼저 만들어 본 도구와 화면들">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #F0F2F5;
-      min-height: 100vh;
-      padding: 48px 40px 80px;
-      color: #1A1D23;
+    :root {
+      --paper: #F6F5F0;
+      --grid: rgba(28, 31, 36, .05);
+      --ink: #1C1F24;
+      --muted: #5F6570;
+      --faint: #8D939C;
+      --line: #E3E1D9;
+      --card: #FFFFFF;
+      --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Consolas, monospace;
+
+      --st-live: #0891B2;
+      --st-active: #16A34A;
+      --st-watch: #D97706;
+      --st-dormant: #A1A6AE;
+      --st-stored: #A1A6AE;
     }
 
-    .header {
-      max-width: 900px;
-      margin: 0 auto 48px;
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 24px 24px;
+      min-height: 100vh;
+      padding: 56px 40px 80px;
+      -webkit-font-smoothing: antialiased;
     }
-    .header-eyebrow {
-      font-size: 12px;
-      font-weight: 600;
-      color: #9CA3AF;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
+
+    .wrap { max-width: 1080px; margin: 0 auto; }
+
+    /* ── Header ── */
+    .lab-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: end;
+      padding-bottom: 28px;
+      border-bottom: 2px solid var(--ink);
     }
-    .header-title {
-      font-size: 28px;
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .08em;
+      margin-bottom: 14px;
+    }
+    .eyebrow b { color: var(--ink); font-weight: 700; }
+    .lab-title {
+      font-size: 44px;
       font-weight: 800;
-      color: #111827;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      word-break: keep-all;
     }
-    .header-sub {
-      font-size: 14px;
-      color: #6B7280;
-      margin-top: 6px;
+    .lab-sub {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: 12px;
+      max-width: 560px;
+      word-break: keep-all;
     }
-    .header-titlerow {
+
+    .flask { width: 112px; height: 132px; flex-shrink: 0; }
+    .flask .bubble { animation: rise 3.2s ease-in infinite; opacity: 0; }
+    .flask .bubble:nth-of-type(2) { animation-delay: 1.1s; }
+    .flask .bubble:nth-of-type(3) { animation-delay: 2.2s; }
+    @keyframes rise {
+      0%   { transform: translateY(0); opacity: 0; }
+      15%  { opacity: .9; }
+      100% { transform: translateY(-58px); opacity: 0; }
+    }
+
+    /* ── Readout (stats) ── */
+    .readout {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--line);
+    }
+    .readout > div {
+      padding: 18px 20px 18px 0;
+    }
+    .readout > div + div { padding-left: 20px; border-left: 1px dashed var(--line); }
+    .readout dt {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--faint);
+      letter-spacing: .04em;
+    }
+    .readout dd {
+      font-size: 26px;
+      font-weight: 800;
+      margin-top: 4px;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .readout dd small { font-size: 15px; font-weight: 600; color: var(--muted); margin-left: 2px; }
+
+    /* ── Toolbar: legend + filter ── */
+    .toolbar {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      align-items: center;
+      gap: 16px 24px;
       flex-wrap: wrap;
+      padding: 16px 0 8px;
     }
-    .trellis-btn {
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 18px;
+      font-size: 14px;
+      color: var(--muted);
+      list-style: none;
+    }
+    .legend li { display: inline-flex; align-items: center; gap: 6px; }
+    .legend b { color: var(--ink); font-weight: 600; }
+
+    .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chip {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       line-height: 1;
       vertical-align: middle;
       gap: 6px;
-      font-size: 13px;
+      font-family: inherit;
+      font-size: 14px;
       font-weight: 600;
-      color: #111827;
-      background: #fff;
-      border: 1px solid #E5E7EB;
-      border-radius: 8px;
-      padding: 9px 13px;
-      text-decoration: none;
-      box-shadow: 0 1px 2px rgba(0,0,0,.04);
-      transition: border-color .15s, box-shadow .15s;
-      white-space: nowrap;
+      color: var(--muted);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 14px;
+      cursor: pointer;
+      transition: color .15s, border-color .15s, background .15s;
     }
-    .trellis-btn:hover {
-      border-color: #111827;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
-    }
-    .trellis-btn .tb-emoji { font-size: 14px; }
+    .chip:hover { color: var(--ink); border-color: var(--ink); }
+    .chip[aria-pressed="true"] { color: #fff; background: var(--ink); border-color: var(--ink); }
+    .chip .n { font-family: var(--mono); font-size: 12px; opacity: .7; }
 
-    .main {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .section-dot {
-      width: 10px;
-      height: 10px;
+    /* ── Status dot ── */
+    .dot {
+      width: 8px; height: 8px;
       border-radius: 50%;
+      background: var(--c, var(--st-dormant));
       flex-shrink: 0;
+      position: relative;
     }
-    .section-title {
+    .dot.live, .dot.active { --pulse: 1; }
+    .dot.live   { --c: var(--st-live); }
+    .dot.active { --c: var(--st-active); }
+    .dot.watch  { --c: var(--st-watch); }
+    .dot.dormant{ --c: var(--st-dormant); }
+    .dot.stored { background: transparent; box-shadow: inset 0 0 0 1.5px var(--st-stored); }
+    .dot.live::after, .dot.active::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: var(--c);
+      animation: ping 2s cubic-bezier(0, 0, .2, 1) infinite;
+    }
+    @keyframes ping { 0% { transform: scale(1); opacity: .6; } 80%, 100% { transform: scale(2.6); opacity: 0; } }
+
+    /* ── Benches (sections) ── */
+    .main { display: flex; flex-direction: column; gap: 48px; margin-top: 36px; }
+
+    .internal { --accent: #EA580C; --accent-bg: #FFF1E6; }
+    .hiai     { --accent: #7E44FB; --accent-bg: #F1EAFF; }
+    .clipo    { --accent: #416BFF; --accent-bg: #EAEFFF; }
+    .personal { --accent: #059669; --accent-bg: #E3F6EE; }
+    .archive  { --accent: #6B7280; --accent-bg: #EEEEEA; }
+
+    .bench-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .bench-code {
+      font-family: var(--mono);
       font-size: 13px;
       font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      color: var(--accent);
+      letter-spacing: .06em;
       white-space: nowrap;
     }
-    .section-line {
-      flex: 1;
-      height: 1px;
-      background: #E5E7EB;
+    .bench-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      word-break: keep-all;
     }
+    .bench-count {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--faint);
+    }
+    .bench-desc {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      word-break: keep-all;
+    }
+
+    details.bench > summary { list-style: none; cursor: pointer; user-select: none; }
+    details.bench > summary::-webkit-details-marker { display: none; }
+    details.bench > summary .bench-head { align-items: center; }
+    .chev {
+      width: 16px; height: 16px;
+      color: var(--faint);
+      transition: transform .2s, color .15s;
+      align-self: center;
+    }
+    details.bench[open] .chev { transform: rotate(180deg); }
+    details.bench > summary:hover .chev { color: var(--ink); }
+    details.bench > summary:hover .bench-title { text-decoration: underline; text-underline-offset: 4px; }
+    .quiet-zone { display: flex; flex-direction: column; gap: 28px; padding-top: 32px; border-top: 1px dashed var(--line); }
+    .quiet-zone .bench-title { font-size: 18px; }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 14px;
     }
 
+    /* ── Specimen card ── */
     .card {
-      background: #fff;
-      border: 1.5px solid #E5E7EB;
-      border-radius: 14px;
-      padding: 22px 24px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px 20px 14px;
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-      cursor: pointer;
       position: relative;
-      overflow: hidden;
+      transition: border-color .15s, box-shadow .15s, transform .15s;
     }
     .card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
+      top: -1px; left: 20px;
+      width: 36px; height: 3px;
+      border-radius: 0 0 3px 3px;
       background: var(--accent);
-      opacity: 0;
-      transition: opacity 0.15s;
     }
-    .card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    a.card:hover {
+      border-color: var(--ink);
+      box-shadow: 0 1px 0 var(--ink), 0 10px 28px rgba(28, 31, 36, .08);
       transform: translateY(-2px);
     }
-    .card:hover::before { opacity: 1; }
-
+    .card[hidden] { display: none; }
+    .archive .card { background: rgba(255,255,255,.7); }
+    .archive .card .card-name, .archive .card .card-desc { color: var(--muted); }
 
     .card-top {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
       gap: 8px;
+      font-family: var(--mono);
+      font-size: 13px;
     }
+    .exp-no { color: var(--faint); font-weight: 500; letter-spacing: .04em; }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-family: 'Pretendard', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .card-head { display: flex; align-items: center; gap: 12px; margin-top: 2px; }
     .card-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 9px;
+      width: 40px; height: 40px;
+      border-radius: 10px;
       background: var(--accent-bg);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
       line-height: 1;
       vertical-align: middle;
-    }
-    .card-date {
-      font-size: 11px;
-      font-weight: 500;
-      color: #9CA3AF;
-      white-space: nowrap;
-      line-height: 1;
+      font-size: 20px;
+      flex-shrink: 0;
     }
     .card-name {
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 700;
-      color: #111827;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      word-break: keep-all;
     }
     .card-desc {
-      font-size: 13px;
-      color: #6B7280;
+      font-size: 14px;
+      color: var(--muted);
       line-height: 1.65;
+      word-break: keep-all;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
     }
-    .card-arrow {
-      position: absolute;
-      right: 20px;
-      bottom: 20px;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: var(--accent-bg);
+    .card-desc code {
+      font-family: var(--mono);
+      font-size: 12px;
+      background: #F1F0EB;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--line);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .updated { display: inline-flex; align-items: baseline; gap: 6px; white-space: nowrap; }
+    .updated b { color: var(--ink); font-weight: 600; }
+    .updated time { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+    .access {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: var(--faint);
+      white-space: nowrap;
+    }
+    .access svg { width: 13px; height: 13px; }
+    .access.public { color: var(--st-active); }
+
+    .card.is-disabled { cursor: not-allowed; }
+    .card.is-disabled:hover { transform: none; box-shadow: none; border-color: var(--line); }
+
+    .empty-note {
+      display: none;
+      font-size: 15px;
+      color: var(--muted);
+      padding: 24px;
+      text-align: center;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.6);
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 72px;
+      padding-top: 20px;
+      border-top: 2px solid var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--faint);
+    }
+    .owner-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       line-height: 1;
       vertical-align: middle;
-      opacity: 0;
-      transition: opacity 0.15s;
+      gap: 6px;
+      color: var(--faint);
+      text-decoration: none;
+      border-bottom: 1px dotted currentColor;
+      padding-bottom: 2px;
     }
-    .card:hover .card-arrow { opacity: 1; }
-    .card-arrow svg { width: 13px; height: 13px; stroke: var(--accent); }
+    .owner-link:hover { color: var(--ink); }
 
-    /* Section color variants */
-    .internal { --accent: #EA580C; --accent-bg: #FFF7ED; }
-    .hiai     { --accent: #7E44FB; --accent-bg: #F3EEFF; }
-    .clipo    { --accent: #416BFF; --accent-bg: #EEF2FF; }
-    .personal { --accent: #059669; --accent-bg: #ECFDF5; }
-    .archive  { --accent: #6B7280; --accent-bg: #F3F4F6; }
-    .archive .card { opacity: .75; }
-    .archive .card:hover { opacity: 1; }
-    details.archive, details.personal { margin-top: 32px; padding-top: 24px; border-top: 1px dashed #E5E7EB; }
-    details.archive > summary, details.personal > summary { list-style: none; cursor: pointer; user-select: none; }
-    details.archive > summary::-webkit-details-marker, details.personal > summary::-webkit-details-marker { display: none; }
-    .archive-count { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 20px; padding: 0 7px; background: #E5E7EB; color: #6B7280; font-size: 12px; font-weight: 600; border-radius: 10px; margin-left: 4px; }
-    .archive-chev { width: 14px; height: 14px; color: #9CA3AF; transition: transform .2s; flex-shrink: 0; }
-    details.archive[open] .archive-chev, details.personal[open] .archive-chev { transform: rotate(180deg); }
-    details.archive > summary:hover .archive-chev, details.personal > summary:hover .archive-chev { color: #4B5563; }
-
-    .internal .section-dot  { background: #EA580C; }
-    .hiai     .section-dot  { background: #7E44FB; }
-    .clipo    .section-dot  { background: #416BFF; }
-    .personal .section-dot  { background: #059669; }
-
-    .internal .section-title { color: #EA580C; }
-    .hiai     .section-title { color: #7E44FB; }
-    .clipo    .section-title { color: #416BFF; }
-    .personal .section-title { color: #059669; }
-
-    /* 접기 가능한 섹션 (아카이브) */
-    .section.collapsible .section-header { cursor: pointer; user-select: none; }
-    .section.collapsible .section-header:hover .section-title { opacity: .7; }
-    .section-chevron {
-      width: 16px;
-      height: 16px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #9CA3AF;
-      transition: transform 0.2s;
-      flex-shrink: 0;
-    }
-    .section.collapsible.collapsed .section-chevron { transform: rotate(-90deg); }
-    .section.collapsible.collapsed .cards { display: none; }
-    .section.collapsible .section-archive-tag {
-      font-size: 10px;
-      font-weight: 600;
-      color: #9CA3AF;
-      padding: 2px 6px;
-      background: #F3F4F6;
-      border-radius: 4px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    footer {
-      max-width: 900px;
-      margin: 60px auto 0;
-      font-size: 12px;
-      color: #D1D5DB;
-      text-align: center;
+    @media (prefers-reduced-motion: reduce) {
+      .flask .bubble, .dot::after { animation: none !important; }
+      .flask .bubble { opacity: .6; }
+      .card { transition: none; }
     }
 
     /* ── Responsive ── */
-    @media (max-width: 640px) {
-      body { padding: 32px 20px 60px; }
-
-      .header { margin-bottom: 36px; }
-      .header-title { font-size: 22px; }
-      .header-sub { font-size: 13px; }
-
-      .main { gap: 32px; }
-
+    @media (max-width: 720px) {
+      body { padding: 36px 16px 60px; }
+      .lab-header { grid-template-columns: 1fr; gap: 0; }
+      .flask { display: none; }
+      .lab-title { font-size: 34px; }
+      .lab-sub { font-size: 16px; }
+      .readout > div { padding: 14px 10px 14px 0; }
+      .readout > div + div { padding-left: 12px; }
+      .readout dd { font-size: 22px; }
+      .readout dt { font-size: 12px; }
+      .toolbar { flex-direction: column; align-items: flex-start; }
       .cards { grid-template-columns: 1fr; gap: 10px; }
-
-      .card { padding: 18px 20px; }
-      .card-name { font-size: 14px; }
-      .card-desc { font-size: 12px; }
-    }
-
-    @media (min-width: 641px) and (max-width: 900px) {
-      body { padding: 40px 28px 72px; }
-      .cards { grid-template-columns: repeat(2, 1fr); }
+      .main { gap: 40px; }
     }
   </style>
 </head>
 <body>
+<div class="wrap">
 
-  <div class="header">
-    <div class="header-eyebrow">Workspace</div>
-    <div class="header-titlerow">
-      <div class="header-title">프로젝트 바로가기</div>
-      <a class="trellis-btn" href="http://127.0.0.1:8735/" target="_blank" rel="noopener" title="Trellis 뷰어 (내 PC에서 trellis serve 실행 중일 때 열림)">
-        <span class="tb-emoji">🗂️</span> Trellis 뷰어
-      </a>
+  <header class="lab-header">
+    <div>
+      <div class="eyebrow"><b>OLIP LAB</b> · 교육 AI 기획 실험 노트</div>
+      <h1 class="lab-title">올립의 실험실</h1>
+      <p class="lab-sub">CLIPO와 AI 서·논술형 평가를 기획하면서, 말로 설명하기 전에 먼저 만들어 본 도구와 화면들이에요.</p>
     </div>
-    <div class="header-sub">만든 것들을 빠르게 찾을 수 있어요</div>
+    <svg class="flask" viewBox="0 0 112 132" fill="none" aria-hidden="true">
+      <circle class="bubble" cx="50" cy="96" r="4" fill="#416BFF"/>
+      <circle class="bubble" cx="62" cy="100" r="3" fill="#7E44FB"/>
+      <circle class="bubble" cx="56" cy="92" r="2.5" fill="#EA580C"/>
+      <path d="M40 8h32M45 8v36L14 108a10 10 0 0 0 9 16h66a10 10 0 0 0 9-16L67 44V8" stroke="#1C1F24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M27 84h58l13 24a10 10 0 0 1-9 16H23a10 10 0 0 1-9-16z" fill="#059669" fill-opacity=".16"/>
+      <path d="M27 84h58" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M50 22h8M50 34h12" stroke="#1C1F24" stroke-width="2" stroke-linecap="round" opacity=".35"/>
+    </svg>
+  </header>
+
+  <dl class="readout" aria-label="실험실 현황">
+    <div><dt>진행 중인 실험</dt><dd id="stat-total">–</dd></div>
+    <div><dt>최근 30일 업데이트</dt><dd id="stat-recent">–</dd></div>
+    <div><dt>마지막 업데이트</dt><dd id="stat-last">–</dd></div>
+  </dl>
+
+  <div class="toolbar">
+    <ul class="legend" aria-label="상태 표시 기준">
+      <li><span class="dot live"></span><b>가동 중</b> 매일 자동으로 돌아가요</li>
+      <li><span class="dot active"></span><b>실험 중</b> 2주 안에 고쳤어요</li>
+      <li><span class="dot watch"></span><b>관찰 중</b> 두 달 안에 고쳤어요</li>
+      <li><span class="dot dormant"></span><b>휴면 중</b> 두 달 넘게 조용해요</li>
+    </ul>
+    <div class="filters" role="group" aria-label="실험 거르기">
+      <button type="button" class="chip" data-filter="all" aria-pressed="true">전체</button>
+      <button type="button" class="chip" data-filter="fresh" aria-pressed="false">최근 30일</button>
+      <button type="button" class="chip" data-filter="public" aria-pressed="false">누구나 열람</button>
+    </div>
   </div>
 
-  <div class="main">
+  <main class="main">
 
-    <!-- ① Internal App -->
-    <div class="section internal">
-      <div class="section-header">
-        <div class="section-dot"></div>
-        <div class="section-title">Internal App</div>
-        <div class="section-line"></div>
+    <!-- BENCH A · 사내 도구 (Internal App) -->
+    <section class="bench internal">
+      <div class="bench-head">
+        <span class="bench-code">BENCH A</span>
+        <h2 class="bench-title">사내 도구</h2>
+        <span class="bench-count"></span>
       </div>
+      <p class="bench-desc">팀이 실제로 매일 쓰는 대시보드와 캘린더예요. 회사 네트워크에서만 열려요.</p>
       <div class="cards">
 
-        <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-analytics/pulse.html" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">📊</div>
-            <span class="card-date">2026-09-03</span>
-          </div>
-          <div class="card-name">CLIPO 주요 지표 대시보드</div>
-          <div class="card-desc">유입 · 활성화 · 리텐션 · 수익을 차트로만. 지역(경기 제외) · 학교급 필터, 전년 겹쳐보기. 매일 아침 자동 갱신 (사내망 전용).</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+        <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-analytics/pulse.html" target="_blank" rel="noopener" data-src="clipo_analytics:pulse.json" data-created="2026-09-03" data-updated="2026-09-14" data-live="매일 자동 갱신">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">📊</div><div class="card-name">CLIPO 주요 지표 대시보드</div></div>
+          <div class="card-desc">유입 · 활성화 · 리텐션 · 수익을 차트로만. 지역(경기 제외) · 학교급 필터, 전년 겹쳐보기. 매일 아침 자동 갱신.</div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-analytics/usage.html#s0-check" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">🩺</div>
-            <span class="card-date">2026-08-02</span>
-          </div>
-          <div class="card-name">CLIPO 주요 지표 점검</div>
+        <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-analytics/usage.html#s0-check" target="_blank" rel="noopener" data-src="clipo_analytics:usage.html" data-created="2026-08-02" data-updated="2026-09-02">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">🩺</div><div class="card-name">CLIPO 주요 지표 점검</div></div>
           <div class="card-desc">로그인 · AI 사용 · 유료 전환 세 가지만 보고 서비스가 정상인지 한눈에 판정해요. 이용 분석 리포트 0장으로 바로 갑니다.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-analytics/usage.html" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">📈</div>
-            <span class="card-date">2026-08-02</span>
-          </div>
-          <div class="card-name">CLIPO 이용 분석 리포트</div>
+        <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-analytics/usage.html" target="_blank" rel="noopener" data-src="clipo_analytics:usage.html" data-created="2026-08-02" data-updated="2026-09-02">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">📈</div><div class="card-name">CLIPO 이용 분석 리포트</div></div>
           <div class="card-desc">처음 온 교사부터 유료 구매·갱신까지 — 유입 · 활성 · 기능 정착 · 유료 네 장으로 CLIPO 이용 현황을 정리했어요.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" href="https://internal-tool.pages.ddapp.io/DD_Attendance/public.html" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">📅</div>
-            <span class="card-date">2026-04-23</span>
-          </div>
-          <div class="card-name">근태 캘린더</div>
+        <a class="card" href="https://internal-tool.pages.ddapp.io/DD_Attendance/public.html" target="_blank" rel="noopener" data-src="dd_attendance:." data-created="2026-04-23" data-updated="2026-08-06" data-live="매일 자동 갱신">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">📅</div><div class="card-name">근태 캘린더</div></div>
           <div class="card-desc">슬랙 #근태 채널 + Wanted Space 연차를 합쳐 팀 전체 일정을 월 캘린더로 보여줘요.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" href="http://192.168.50.76:8080/" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">🗓️</div>
-            <span class="card-date">2026-07-06</span>
-          </div>
-          <div class="card-name">팀 캘린더</div>
+        <a class="card" href="http://192.168.50.76:8080/" target="_blank" rel="noopener" data-src="team-schedule-server:src" data-created="2026-07-06" data-updated="2026-07-06" data-live="상시 편집">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">🗓️</div><div class="card-name">팀 캘린더</div></div>
           <div class="card-desc">배포·운영·기획·디자인 일정 + 월별 메모를 한 화면에. 사내망에서 토큰 없이 바로 편집.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
       </div>
-    </div>
+    </section>
 
-    <!-- ② HIAI 목업 -->
-    <div class="section hiai">
-      <div class="section-header">
-        <div class="section-dot"></div>
-        <div class="section-title">HIAI 목업</div>
-        <div class="section-line"></div>
+    <!-- BENCH B · AI 서·논술형 평가지원시스템 (HIAI 목업) -->
+    <section class="bench hiai">
+      <div class="bench-head">
+        <span class="bench-code">BENCH B</span>
+        <h2 class="bench-title">AI 서·논술형 평가지원시스템</h2>
+        <span class="bench-count"></span>
       </div>
+      <p class="bench-desc">평가 설계부터 AI 채점·리포트까지, 개선할 화면을 개발 전에 먼저 만들어 봐요.</p>
       <div class="cards">
 
-        <a class="card" href="https://obkim-lgtm.github.io/hiai-mockup/output/index.html" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">🗂️</div>
-            <span class="card-date">2026-07-15</span>
-          </div>
-          <div class="card-name">목업 화면 URL 인덱스</div>
+        <a class="card" href="https://obkim-lgtm.github.io/hiai-mockup/output/index.html" target="_blank" rel="noopener" data-src="hiai_mockup:output/index.html" data-created="2026-07-15" data-updated="2026-09-09">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">🗂️</div><div class="card-name">목업 화면 URL 인덱스</div></div>
           <div class="card-desc">개선 예정 화면을 한 페이지에서 — 과제물 인식(OCR)·평가 설계·설문·AI 채점·리포트 목업을 상태별 링크로 모아뒀어요.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
       </div>
-    </div>
+    </section>
 
-    <!-- ③ CLIPO 목업 -->
-    <div class="section clipo">
-      <div class="section-header">
-        <div class="section-dot"></div>
-        <div class="section-title">CLIPO 목업 · 26년 하반기</div>
-        <div class="section-line"></div>
+    <!-- BENCH C · CLIPO 목업 26년 하반기 -->
+    <section class="bench clipo">
+      <div class="bench-head">
+        <span class="bench-code">BENCH C</span>
+        <h2 class="bench-title">CLIPO · 26년 하반기</h2>
+        <span class="bench-count"></span>
       </div>
+      <p class="bench-desc">선생님이 수업을 만들고 채점하고 기록하는 흐름을 화면으로 먼저 돌려 봐요.</p>
       <div class="cards">
 
-        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/co_teacher_review_v1_260611.html?home=1" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">📚</div>
-            <span class="card-date">2026-06-12</span>
-          </div>
-          <div class="card-name">클리포 수업</div>
+        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/co_teacher_review_v1_260611.html?home=1" target="_blank" rel="noopener" data-src="clipo_mockup:output/co_teacher_review_v1_260611.html" data-created="2026-06-12" data-updated="2026-08-28">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">📚</div><div class="card-name">클리포 수업</div></div>
           <div class="card-desc">수업 홈 → 수행평가 설계 → 과제물 관리 → 수행평가 채점까지 선생님 전체 흐름. 빈 양식 업로드·학급 PDF 일괄 업로드·OCR 확인 필요 수정·자동 확인완료까지 탭으로 한 바퀴.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/quick_seteuk_dev_v1_260528.html" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">⚡</div>
-            <span class="card-date">2026-05-28</span>
-          </div>
-          <div class="card-name">세특 간편 생성기 (개발본)</div>
+        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/quick_seteuk_dev_v1_260528.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/quick_seteuk_dev_v1_260528.html" data-created="2026-05-28" data-updated="2026-06-17">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">⚡</div><div class="card-name">세특 간편 생성기 (개발본)</div></div>
           <div class="card-desc">실제 개발 화면·피그마 기준 3~5단계 (키워드 및 활동 입력 / AI 기록 생성 / 기록 편집). 개별 자료 업로드+AI 분석, 기록 다듬기 포함. 스텝바로 단계 이동.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/creative_activity_list_v6_260507.html" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">📝</div>
-            <span class="card-date">2026-05-08</span>
-          </div>
-          <div class="card-name">창의적 체험활동</div>
+        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/creative_activity_list_v6_260507.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/creative_activity_list_v6_260507.html" data-created="2026-05-08" data-updated="2026-06-12">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">📝</div><div class="card-name">창의적 체험활동</div></div>
           <div class="card-desc">자율·진로·동아리·봉사 활동 누가기록. 목록 → 학생 자료 입력 → AI 콘텐츠 요소 선택 → 기록 확인·수정 3단계 흐름.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/subscription_manage_v1_260513.html" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">💳</div>
-            <span class="card-date">2026-05-13</span>
-          </div>
-          <div class="card-name">이용권 관리</div>
+        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/subscription_manage_v1_260513.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/subscription_manage_v1_260513.html" data-created="2026-05-13" data-updated="2026-07-29">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">💳</div><div class="card-name">이용권 관리</div></div>
           <div class="card-desc">크레딧 정책(v0.7)은 유지, 크레딧 정보 표시 UI 변경 — 데일리/종량제 잔여·만료·차감을 한눈에 정리.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/class_scoring_detail_v1_260512.html" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">🎒</div>
-            <span class="card-date">2026-05-12</span>
-          </div>
-          <div class="card-name">초등 채점·결과 공개</div>
+        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/class_scoring_detail_v1_260512.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/class_scoring_detail_v1_260512.html" data-created="2026-05-12" data-updated="2026-08-28">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">🎒</div><div class="card-name">초등 채점·결과 공개</div></div>
           <div class="card-desc">학급 채점 현황 → 학생별 채점 → 결과 공개(학생 화면/PDF) 전체 흐름. 김피드백·미제출·채점실패 등 케이스 포함.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
       </div>
-    </div>
+    </section>
 
-    <!-- ③-2 CLIPO 목업 · 추후 -->
-    <div class="section clipo">
-      <div class="section-header">
-        <div class="section-dot"></div>
-        <div class="section-title">CLIPO 목업 · 추후</div>
-        <div class="section-line"></div>
+    <!-- BENCH C′ · CLIPO 목업 추후 -->
+    <section class="bench clipo">
+      <div class="bench-head">
+        <span class="bench-code">BENCH C′</span>
+        <h2 class="bench-title">CLIPO · 다음 차례</h2>
+        <span class="bench-count"></span>
       </div>
+      <p class="bench-desc">아이디어 단계이거나 일정이 뒤로 밀려 잠시 대기 중인 화면이에요.</p>
       <div class="cards">
 
-        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/focus_log_v1_260728.html" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">🖥️</div>
-            <span class="card-date">2026-07-28</span>
-          </div>
-          <div class="card-name">화면 이탈 집중 로그</div>
-          <div class="card-desc">직접 제출 중 다른 탭·창으로 이동한 기록을 남기는 컨셉(루카스 제안). 학생 사전 고지 → 제출 중 실제 이탈 감지 → 교사 제출 현황 이탈 로그 열. 판정 없이 사실만 기록.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/focus_log_v1_260728.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/focus_log_v1_260728.html" data-created="2026-07-28" data-updated="2026-08-19">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">🖥️</div><div class="card-name">화면 이탈 집중 로그</div></div>
+          <div class="card-desc">직접 제출 중 다른 탭·창으로 이동한 기록을 남기는 컨셉. 학생 사전 고지 → 제출 중 실제 이탈 감지 → 교사 제출 현황 이탈 로그 열. 판정 없이 사실만 기록.</div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/kkamangi_hub_260704.html" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">⚡</div>
-            <span class="card-date">2026-07-04</span>
-          </div>
-          <div class="card-name">AI 채점 옵션 목업</div>
+        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/kkamangi_hub_260704.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/kkamangi_hub_260704.html" data-created="2026-07-04" data-updated="2026-07-04">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">⚡</div><div class="card-name">AI 채점 옵션 목업</div></div>
           <div class="card-desc">"AI 결과 너무 길다" 피드백 반영 — 채점 실행 옵션(모드·모델·이전 채점 참고) → 빠른 채점 학생 상세(총평+한 줄 근거, Enter로 넘김) → 재실행 옵션(부분 재채점·AI 요청 프롬프트).</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/affiliation_workspace_v1_260622.html" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">🔀</div>
-            <span class="card-date">2026-06-22</span>
-          </div>
-          <div class="card-name">겸임 · 복수 학교</div>
+        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/affiliation_workspace_v1_260622.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/affiliation_workspace_v1_260622.html" data-created="2026-06-22" data-updated="2026-06-22">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">🔀</div><div class="card-name">겸임 · 복수 학교</div></div>
           <div class="card-desc">한 계정으로 복수 학교 워크스페이스 — 헤더 학교 스위처, 소속 학교 카드(교과·권한·인증), 학교 추가 / 소속 정리 분기, 이용권 귀속 라벨(모든 학교 공용·특정 학교 전용).</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/affiliation_change_v3_260616.html" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">🏫</div>
-            <span class="card-date">2026-06-16</span>
-          </div>
-          <div class="card-name">소속 변경 · 데이터 보존</div>
+        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/affiliation_change_v3_260616.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/affiliation_change_v3_260616.html" data-created="2026-06-16" data-updated="2026-06-22">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">🏫</div><div class="card-name">소속 변경 · 데이터 보존</div></div>
           <div class="card-desc">학교를 옮길 때 학생 정보는 비식별화 보존, 작업물은 유지. 내 정보 → 소속 변경 → 보존 동의 → 재인증 흐름. 이전 학교 자료는 읽기전용 아카이브(수업/기록 탭, 학교 스위처)로 열람.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/quick_seteuk_list_v1_260526.html" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">⚡</div>
-            <span class="card-date">추후 예정</span>
-          </div>
-          <div class="card-name">세특 간편 생성기</div>
-          <div class="card-desc">교과·그룹 정보를 분리하고 3단계로 재구성한 목업(2026-05-27). 일정상 6/25 배포에서는 제외됨.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/quick_seteuk_list_v1_260526.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/quick_seteuk_list_v1_260526.html" data-created="2026-05-26" data-updated="2026-05-28">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon">⚡</div><div class="card-name">세특 간편 생성기</div></div>
+          <div class="card-desc">교과·그룹 정보를 분리하고 3단계로 재구성한 목업. 일정상 6/25 배포에서는 제외됨.</div>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
       </div>
+    </section>
+
+    <div class="quiet-zone">
+
+      <!-- SIDE · Personal (접힘) -->
+      <details class="bench personal">
+        <summary>
+          <div class="bench-head">
+            <span class="bench-code">SIDE</span>
+            <h2 class="bench-title">업무 밖 실험</h2>
+            <span class="bench-count"></span>
+            <svg class="chev" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.5 5l3.5 3.5L10.5 5"/></svg>
+          </div>
+          <p class="bench-desc">개인적으로 만들어 보는 것들이에요.</p>
+        </summary>
+        <div class="cards">
+
+          <a class="card" href="http://localhost:3000" target="_blank" rel="noopener" data-local data-src="side-projects/nestegg:src" data-created="2026-04-05" data-updated="2026-04-05">
+            <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+            <div class="card-head"><div class="card-icon">🥚</div><div class="card-name">가계부 (NestEgg)</div></div>
+            <div class="card-desc">구글 로그인 기반 개인 가계부. 먼저 <code>docker compose up</code> 으로 서버를 시작해야 해요.</div>
+            <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+          </a>
+
+        </div>
+      </details>
+
+      <!-- STORAGE · 아카이브 (접힘) -->
+      <details class="bench archive">
+        <summary>
+          <div class="bench-head">
+            <span class="bench-code">STORAGE</span>
+            <h2 class="bench-title">보관함</h2>
+            <span class="bench-count"></span>
+            <svg class="chev" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.5 5l3.5 3.5L10.5 5"/></svg>
+          </div>
+          <p class="bench-desc">실험은 끝났지만 과정을 기록으로 남겨둔 것들이에요.</p>
+        </summary>
+        <div class="cards">
+
+          <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-revenue/" target="_blank" rel="noopener" data-src="_clipo-revenue:." data-created="2026-07-20" data-updated="2026-08-06">
+            <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+            <div class="card-head"><div class="card-icon">📊</div><div class="card-name">클리포 매출 관리</div></div>
+            <div class="card-desc">7/20 기준 중단 (자체 채널 구축으로 구글시트 중단). 자동 갱신·Slack 발송 중단, 요청 시에만 수동 갱신.</div>
+            <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+          </a>
+
+          <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/co_teacher_review_v1_260611.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/co_teacher_review_v1_260611.html" data-created="2026-06-11" data-updated="2026-08-28">
+            <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+            <div class="card-head"><div class="card-icon">🤝</div><div class="card-name">공동교사 (채점 결과 공동 확인)</div></div>
+            <div class="card-desc">고교 공동평가 대응 — 검토자 초대 → 확인 요청 → 검토 모드(보기·의견·확인) → 확인 기록·의견 수신 4단계 데모. 우측 하단 DEMO FLOW로 시점 전환.</div>
+            <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+          </a>
+
+          <a class="card" href="https://internal-tool.pages.ddapp.io/deploy-calendar/" target="_blank" rel="noopener" data-src="_deploy_calendar:." data-created="2026-05-07" data-updated="2026-08-06">
+            <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+            <div class="card-head"><div class="card-icon">📦</div><div class="card-name">배포 캘린더</div></div>
+            <div class="card-desc">두 서비스의 배포 일정과 기능별 개발/QA 계획을 한 화면에서 관리해요.</div>
+            <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+          </a>
+
+          <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-cs/" target="_blank" rel="noopener" data-src="clipo_cs:." data-created="2026-04-30" data-updated="2026-07-20">
+            <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+            <div class="card-head"><div class="card-icon">💬</div><div class="card-name">CLIPO CS 지원</div></div>
+            <div class="card-desc">과거 답변 + 릴리즈노트 + FAQ를 기반으로 CS 답변 초안을 Claude가 생성해줘요.</div>
+            <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+          </a>
+
+          <a class="card" href="https://internal-tool.pages.ddapp.io/hiai-cs/" target="_blank" rel="noopener" data-src="hiai_cs:." data-created="2026-04-30" data-updated="2026-08-06">
+            <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+            <div class="card-head"><div class="card-icon">💬</div><div class="card-name">평가지원시스템 CS 지원</div></div>
+            <div class="card-desc">선생님 1:1 문의에 대한 답변 초안을 과거 답변 + 릴리즈노트로 생성해줘요.</div>
+            <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+          </a>
+
+        </div>
+      </details>
+
     </div>
 
-    <!-- ④ Personal (접힘) -->
-    <details class="section personal">
-      <summary class="section-header">
-        <div class="section-dot"></div>
-        <div class="section-title">Personal</div>
-        <span class="archive-count">1</span>
-        <div class="section-line"></div>
-        <svg class="archive-chev" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.5 5l3.5 3.5L10.5 5"/></svg>
-      </summary>
-      <div class="cards">
+    <p class="empty-note" id="empty-note">이 조건에 맞는 실험이 없어요. 다른 필터를 눌러 보세요.</p>
 
-        <a class="card" href="http://localhost:3000" target="_blank" data-local>
-          <div class="card-top">
-            <div class="card-icon">🥚</div>
-            <span class="card-date">2026-04-05</span>
-          </div>
-          <div class="card-name">가계부 (NestEgg)</div>
-          <div class="card-desc">구글 로그인 기반 개인 가계부. 먼저 <code style="background:#F3F4F6;padding:1px 5px;border-radius:4px;font-size:12px">docker compose up</code> 으로 서버를 시작해야 해요.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
-        </a>
+  </main>
 
-      </div>
-    </details>
+  <footer>
+    <span>OLIP LAB · obkim-lgtm.github.io/hub · 페이지 정리 <span id="built-at">2026-09-14</span></span>
+    <a class="owner-link" href="http://127.0.0.1:8735/" target="_blank" rel="noopener" title="내 PC에서 trellis serve 실행 중일 때만 열려요">🗂️ 작업 일지 (내 PC)</a>
+  </footer>
 
-    <!-- 아카이브 (별도 영역, 접힘 기본) -->
-    <details class="section archive">
-      <summary class="section-header archive-header">
-        <div class="section-dot"></div>
-        <div class="section-title">아카이브</div>
-        <span class="archive-count" id="archive-count">4</span>
-        <div class="section-line"></div>
-        <svg class="archive-chev" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.5 5l3.5 3.5L10.5 5"/></svg>
-      </summary>
-      <div class="cards">
+</div>
 
-        <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-revenue/" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">📊</div>
-            <span class="card-date">2026-07-20</span>
-          </div>
-          <div class="card-name">클리포 매출 관리 (아카이빙)</div>
-          <div class="card-desc">7/20 기준 중단 (BS 자체 채널 구축으로 구글시트 중단). 자동 갱신·Slack 발송 중단, 요청 시에만 수동 갱신.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
-        </a>
+<script>
+(function () {
+  'use strict';
 
-        <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/co_teacher_review_v1_260611.html" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">🤝</div>
-            <span class="card-date">2026-06-11</span>
-          </div>
-          <div class="card-name">공동교사 (채점 결과 공동 확인)</div>
-          <div class="card-desc">고교 공동평가 대응 — 검토자 초대 → 확인 요청 → 검토 모드(보기·의견·확인) → 확인 기록·의견 수신 4단계 데모. 우측 하단 DEMO FLOW로 시점 전환.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
-        </a>
+  var DAY = 86400000;
+  var now = new Date();
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-        <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-cs/" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">💬</div>
-            <span class="card-date">2026-04-30</span>
-          </div>
-          <div class="card-name">CLIPO CS 지원</div>
-          <div class="card-desc">과거 답변 + 릴리즈노트 + FAQ를 기반으로 CS 답변 초안을 Claude가 생성해줘요.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
-        </a>
+  var ICONS = {
+    public: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6.2"/><path d="M1.8 8h12.4M8 1.8c1.8 1.9 2.6 4 2.6 6.2S9.8 12.3 8 14.2C6.2 12.3 5.4 10.2 5.4 8S6.2 3.7 8 1.8z"/></svg>',
+    internal: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg>',
+    local: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="3" width="11" height="7.5" rx="1"/><path d="M1 13h14"/></svg>'
+  };
+  var ACCESS_LABEL = { public: '누구나 열람', internal: '사내망 전용', local: '내 PC 전용' };
 
-        <a class="card" href="https://internal-tool.pages.ddapp.io/hiai-cs/" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">💬</div>
-            <span class="card-date">2026-04-30</span>
-          </div>
-          <div class="card-name">HIAI CS 지원</div>
-          <div class="card-desc">경기도 선생님 1:1 문의에 대한 답변 초안을 과거 답변 + HIAI 릴리즈노트로 생성해줘요.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
-        </a>
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+  var isLocalHost = ['localhost', '127.0.0.1', ''].indexOf(location.hostname) !== -1;
 
-        <a class="card" href="https://internal-tool.pages.ddapp.io/deploy-calendar/" target="_blank">
-          <div class="card-top">
-            <div class="card-icon">📦</div>
-            <span class="card-date">2026-05-07</span>
-          </div>
-          <div class="card-name">배포 캘린더</div>
-          <div class="card-desc">HIAI · CLIPO 두 서비스의 배포 일정과 기능별 개발/QA 계획을 한 화면에서 관리해요.</div>
-          <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
-        </a>
+  function parseDate(s) {
+    var p = String(s || '').slice(0, 10).split('-').map(Number);
+    if (p.length < 3 || !p[0]) return null;
+    return new Date(p[0], p[1] - 1, p[2]);
+  }
+  function daysSince(s) {
+    var d = parseDate(s);
+    return d ? Math.max(0, Math.round((today - d) / DAY)) : Infinity;
+  }
+  function relative(n) {
+    if (n === Infinity) return '기록 없음';
+    if (n === 0) return '오늘';
+    if (n === 1) return '어제';
+    if (n < 7) return n + '일 전';
+    if (n < 30) return Math.floor(n / 7) + '주 전';
+    if (n < 365) return Math.floor(n / 30) + '개월 전';
+    return Math.floor(n / 365) + '년 전';
+  }
+  function dotted(s) { return String(s).slice(0, 10).replace(/-/g, '.'); }
 
-      </div>
-    </details>
+  function statusOf(card) {
+    if (card.closest('.archive')) return ['stored', '보관 중'];
+    if (card.dataset.live) return ['live', '가동 중'];
+    var n = daysSince(card.dataset.updated);
+    if (n <= 14) return ['active', '실험 중'];
+    if (n <= 60) return ['watch', '관찰 중'];
+    return ['dormant', '휴면 중'];
+  }
+  function accessOf(card) {
+    var h = card.getAttribute('href') || '';
+    if (card.hasAttribute('data-local') || /localhost|127\.0\.0\.1/.test(h)) return 'local';
+    if (/ddapp\.io|192\.168\./.test(h)) return 'internal';
+    return 'public';
+  }
 
-  </div>
+  function render(card) {
+    var st = statusOf(card);
+    card.querySelector('.status').innerHTML = '<span class="dot ' + st[0] + '"></span>' + st[1];
 
-  <footer>obkim-lgtm.github.io/hub</footer>
+    var up = card.querySelector('.updated');
+    if (card.dataset.live) {
+      up.innerHTML = '<b>' + card.dataset.live + '</b>';
+    } else {
+      var u = card.dataset.updated;
+      up.innerHTML = '<b>' + relative(daysSince(u)) + ' 업데이트</b>' +
+        (u ? '<time datetime="' + u + '">' + dotted(u) + '</time>' : '');
+    }
 
+    var ac = accessOf(card);
+    card.dataset.access = ac;
+    var el = card.querySelector('.access');
+    el.className = 'access ' + ac;
+    el.innerHTML = ICONS[ac] + ACCESS_LABEL[ac];
+  }
 
+  /* 실험 번호: 처음 만든 순서대로 */
+  cards.slice().sort(function (a, b) {
+    return (a.dataset.created || '').localeCompare(b.dataset.created || '');
+  }).forEach(function (card, i) {
+    card.querySelector('.exp-no').textContent = 'EXP-' + String(i + 1).padStart(3, '0');
+  });
+
+  /* 섹션 안에서는 최근 업데이트 순 (가동 중인 도구가 맨 앞) */
+  document.querySelectorAll('.cards').forEach(function (grid) {
+    var list = Array.prototype.slice.call(grid.children);
+    list.sort(function (a, b) {
+      var la = a.dataset.live ? 1 : 0, lb = b.dataset.live ? 1 : 0;
+      if (la !== lb) return lb - la;
+      return (b.dataset.updated || '').localeCompare(a.dataset.updated || '');
+    }).forEach(function (c) { grid.appendChild(c); });
+  });
+
+  /* 배포 환경에서는 내 PC 전용 링크를 막는다 */
+  if (!isLocalHost) {
+    cards.filter(function (c) { return c.hasAttribute('data-local'); }).forEach(function (c) {
+      c.classList.add('is-disabled');
+      c.setAttribute('aria-disabled', 'true');
+      c.removeAttribute('target');
+      c.addEventListener('click', function (e) { e.preventDefault(); });
+    });
+  }
+
+  function renderStats() {
+    var active = cards.filter(function (c) { return !c.closest('.archive'); });
+    var dated = active.filter(function (c) { return !c.dataset.live; });
+    var recent = dated.filter(function (c) { return daysSince(c.dataset.updated) <= 30; }).length;
+    var last = dated.map(function (c) { return daysSince(c.dataset.updated); })
+      .reduce(function (m, n) { return Math.min(m, n); }, Infinity);
+    document.getElementById('stat-total').innerHTML = active.length + '<small>개</small>';
+    document.getElementById('stat-recent').innerHTML = recent + '<small>개</small>';
+    document.getElementById('stat-last').textContent = relative(last);
+
+    document.querySelectorAll('.bench').forEach(function (b) {
+      var n = b.querySelectorAll('.card').length;
+      var el = b.querySelector('.bench-count');
+      if (el) el.textContent = String(n).padStart(2, '0') + ' EXP';
+    });
+  }
+
+  cards.forEach(render);
+  renderStats();
+
+  /* 필터 */
+  var current = 'all';
+  function applyFilter() {
+    var shown = 0;
+    cards.forEach(function (c) {
+      var ok = current === 'all' ||
+        (current === 'public' && c.dataset.access === 'public') ||
+        (current === 'fresh' && !c.closest('.archive') &&
+          (c.dataset.live || daysSince(c.dataset.updated) <= 30));
+      c.hidden = !ok;
+      if (ok) shown++;
+    });
+    document.querySelectorAll('.bench').forEach(function (b) {
+      var visible = b.querySelectorAll('.card:not([hidden])').length;
+      b.hidden = visible === 0;
+      if (b.tagName === 'DETAILS' && current !== 'all' && visible) b.open = true;
+    });
+    document.getElementById('empty-note').style.display = shown ? 'none' : 'block';
+  }
+  document.querySelectorAll('.chip').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      current = btn.dataset.filter;
+      document.querySelectorAll('.chip').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+      applyFilter();
+    });
+  });
+
+  /* GitHub에 올라간 목업은 커밋 날짜를 실시간으로 확인 (1시간 캐시) */
+  var TTL = 3600000;
+  function cacheGet(k) {
+    try { var v = JSON.parse(localStorage.getItem(k)); return v && Date.now() - v.at < TTL ? v.date : null; }
+    catch (e) { return null; }
+  }
+  function cacheSet(k, date) {
+    try { localStorage.setItem(k, JSON.stringify({ at: Date.now(), date: date })); } catch (e) {}
+  }
+  var groups = {};
+  cards.forEach(function (c) {
+    var m = (c.getAttribute('href') || '').match(/^https:\/\/obkim-lgtm\.github\.io\/([^/]+)\/([^?#]+)/);
+    if (!m) return;
+    var key = m[1] + '/' + m[2];
+    (groups[key] = groups[key] || { repo: m[1], path: m[2], cards: [] }).cards.push(c);
+  });
+  function apply(g, iso) {
+    if (!iso) return;
+    var d = iso.slice(0, 10);
+    g.cards.forEach(function (c) {
+      if (!c.dataset.updated || d > c.dataset.updated) { c.dataset.updated = d; render(c); }
+    });
+    renderStats();
+    if (current !== 'all') applyFilter();
+  }
+  Object.keys(groups).forEach(function (key) {
+    var g = groups[key], ck = 'olip-lab:' + key, hit = cacheGet(ck);
+    if (hit) { apply(g, hit); return; }
+    if (!window.fetch) return;
+    fetch('https://api.github.com/repos/obkim-lgtm/' + g.repo + '/commits?per_page=1&path=' + encodeURIComponent(g.path))
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (list) {
+        var iso = list && list[0] && list[0].commit && list[0].commit.committer && list[0].commit.committer.date;
+        if (iso) { cacheSet(ck, iso); apply(g, iso); }
+      })
+      .catch(function () {});
+  });
+})();
+</script>
 </body>
 </html>

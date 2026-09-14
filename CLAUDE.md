@@ -1,70 +1,81 @@
-# Hub Page (프로젝트 바로가기)
+# Hub Page — 올립의 실험실 (OLIP LAB)
 
-작업 디렉토리에 만든 프로젝트들의 카드 모음. **새 프로젝트 만들거나 배포할 때마다 카드 추가 필수.**
+작업 디렉토리에 만든 프로젝트들의 카드 모음. 2026-09-14부터 **다른 사람에게 보여주는 "실험실" 컨셉**으로 개편했다. **새 프로젝트 만들거나 배포할 때마다 카드 추가 필수.**
 
 ## 배포 정보
 
-> 경로는 작업 디렉토리(`내 드라이브\Claude`) 기준 상대경로로 적는다. 드라이브 문자는 PC마다 다름 (현재 PC: `F:`).
+> 경로는 작업 디렉토리(`내 드라이브\Claude`) 기준 상대경로로 적는다. 드라이브 문자는 PC마다 다름.
 
 | 항목 | 값 |
 |------|-----|
 | 소스 | `_hub\index.html` |
+| 날짜 동기화 스크립트 | `_hub\tools\update_dates.py` |
 | GitHub repo | `obkim-lgtm/hub` (public) |
 | 호스팅 | GitHub Pages |
 | 배포 URL | https://obkim-lgtm.github.io/hub/ |
 | 배포 브랜치 | `main` (push하면 자동 배포, ~30초) |
 
+## 외부 공개 페이지라서 지킬 것
+
+- 노출 문구에 **HIAI·하이러닝을 쓰지 않는다** → 공식명 `AI 서·논술형 평가지원시스템` (섹션명·카드명·설명 모두).
+- **동료 이름·내부 사정(예: "루카스 제안", "BS 채널")을 카드 설명에 쓰지 않는다.**
+- 내부 용어(까망이 등)는 URL에만 남고 문구엔 쓰지 않는다.
+
 ## 페이지 구조
 
-단일 HTML 파일. 인라인 CSS, 외부 의존성은 Pretendard CDN뿐.
+단일 HTML 파일. 인라인 CSS·JS. 외부 의존성은 Pretendard(jsdelivr) + JetBrains Mono(Google Fonts)뿐.
+배경은 모눈종이, 섹션은 "실험대(BENCH)", 카드는 "실험 표본" 컨셉.
 
-### 섹션 4개 (고정)
+### 섹션 (순서 고정)
 
-| 섹션 | class | 컬러 (--accent) | 배경 (--accent-bg) | 용도 |
-|------|-------|-----------------|---------------------|------|
-| Internal App | `.internal` | `#EA580C` (주황) | `#FFF7ED` | 사내 Gitea 배포 앱 |
-| HIAI 목업 | `.hiai` | `#7E44FB` (보라) | `#F3EEFF` | HIAI 서비스 UI 목업 |
-| CLIPO 목업 | `.clipo` | `#416BFF` (파랑) | `#EEF2FF` | CLIPO 서비스 UI 목업 |
-| Personal | `.personal` | `#059669` (초록) | `#ECFDF5` | 개인 프로젝트 |
+| 코드 | 섹션 제목 | class | 컬러 | 용도 |
+|------|-----------|-------|------|------|
+| BENCH A | 사내 도구 | `.internal` | `#EA580C` | 사내 Gitea·dd-mac 앱 |
+| BENCH B | AI 서·논술형 평가지원시스템 | `.hiai` | `#7E44FB` | HIAI 목업 |
+| BENCH C | CLIPO · 26년 하반기 | `.clipo` | `#416BFF` | CLIPO 목업 |
+| BENCH C′ | CLIPO · 다음 차례 | `.clipo` | `#416BFF` | CLIPO 추후 목업 |
+| SIDE | 업무 밖 실험 (접힘) | `.personal` | `#059669` | 개인 프로젝트 |
+| STORAGE | 보관함 (접힘) | `.archive` | `#6B7280` | 아카이브 |
 
 ## 카드 추가 방법
 
-각 섹션의 `.cards` 안에 다음 패턴으로 카드 추가:
+해당 섹션 `.cards` 안 아무 곳에 넣으면 된다. **순서는 JS가 최근 업데이트 순으로 자동 정렬**하므로 신경 쓰지 않는다.
 
 ```html
-<a class="card" href="URL" target="_blank">
-  <div class="card-top">
-    <div class="card-icon">🌸</div>
-    <span class="card-date">YYYY-MM-DD</span>
-  </div>
-  <div class="card-name">카드 제목</div>
-  <div class="card-desc">한두 줄 설명. 너무 길지 않게.</div>
-  <div class="card-arrow"><svg fill="none" viewBox="0 0 14 14" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></div>
+<a class="card" href="URL" target="_blank" rel="noopener" data-src="clipo_mockup:output/foo.html" data-created="YYYY-MM-DD" data-updated="YYYY-MM-DD">
+  <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+  <div class="card-head"><div class="card-icon">🌸</div><div class="card-name">카드 제목</div></div>
+  <div class="card-desc">한두 줄 설명. 3줄 넘으면 잘린다.</div>
+  <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
 </a>
 ```
 
-### 작성 규칙
+빈 `span`(`exp-no`·`status`·`updated`·`access`)은 JS가 채운다. 직접 쓰지 않는다.
 
-- **`href`**:
-  - 배포 URL이 있으면 절대 URL (예: `https://training.clipo.ai/event/`)
-  - 로컬 파일 경로면 상대경로 (예: `clipo_mockup/output/foo.html`) → `data-local` 속성 추가 필수
-- **`data-local` 속성**: 파일 시스템 경로를 가리키는 카드는 GitHub Pages에선 안 열리므로, 배포 환경에선 자동 비활성화 처리되도록 이 속성을 붙임
-- **`card-icon`**: 이모지 1개. 카드 성격에 맞게 선택
-- **`card-date`**: 카드 추가일 (작업 시점 날짜) `YYYY-MM-DD` 형식
-- **`card-name`**: 짧고 명료하게 (15자 이내 권장)
-- **`card-desc`**: 1~2줄. 무슨 프로젝트인지, 어떤 흐름인지 핵심만
+### 속성 규칙
 
-### 카드 위치
+| 속성 | 뜻 | 비고 |
+|------|----|------|
+| `data-src` | `<작업 디렉토리 기준 폴더>:<그 안 경로>` | 날짜 스크립트가 이걸로 마지막 수정일을 찾는다. 폴더 전체면 `:.` |
+| `data-created` | 카드(실험)를 처음 만든 날 | `EXP-001` 번호가 이 순서로 매겨진다 |
+| `data-updated` | 소스 마지막 수정일 | **손으로 쓰지 말고 스크립트로 갱신** |
+| `data-live="매일 자동 갱신"` | 스케줄로 계속 도는 서비스 | 날짜 대신 이 문구 + `가동 중` 상태. 자동 갱신이 실제로 있을 때만 붙인다 |
+| `data-local` | 내 PC에서만 열리는 링크 | 배포 환경(localhost 외)에선 클릭이 막힌다 |
 
-같은 섹션 안에서는 **최근 순**으로 (가장 최근 카드가 맨 위). 새 카드는 해당 섹션 `.cards` 맨 앞에 추가. 섹션 자체 순서는 고정.
+### 자동으로 계산되는 표시
+
+- **상태**: 보관함=`보관 중` · `data-live`=`가동 중` · 14일 이내=`실험 중` · 60일 이내=`관찰 중` · 그 외=`휴면 중`
+- **열람 범위**: `ddapp.io`·`192.168.*`=`사내망 전용`, `localhost`·`data-local`=`내 PC 전용`, 나머지=`누구나 열람`
+- **GitHub Pages 목업**(`obkim-lgtm.github.io/<repo>/<path>`)은 방문 시 GitHub API로 그 파일의 최신 커밋 날짜를 가져와 더 최근이면 덮어쓴다(1시간 캐시). 그래서 목업만 고치고 허브를 재배포하지 않아도 날짜가 산다.
+- 사내 도구는 외부에서 조회가 안 되므로 **허브를 배포할 때마다 스크립트로 날짜를 갱신**해야 한다.
 
 ## 배포 명령
 
 ```bash
+py -3 _hub/tools/update_dates.py
 cd _hub
-git add index.html
-git -c user.name="obkim-lgtm" -c user.email="ob.kim@datadriven.kr" \
-  commit -m "허브: <카드명> 추가"
+git add -A
+git -c user.name="obkim-lgtm" -c user.email="ob.kim@datadriven.kr" commit -m "허브: <변경 내용>"
 git push
 ```
 
@@ -72,13 +83,8 @@ GitHub Pages가 push 후 자동 배포. 약 30초 후 https://obkim-lgtm.github.
 
 ## 카드 수정/삭제
 
-- 프로젝트가 사라지면 해당 카드도 삭제
-- 프로젝트 URL 변경 시 `href` 업데이트
-- 설명이 부정확해지면 `card-desc` 수정
-
-## `data-local` 동작
-
-`index.html` 하단 `<script>`에서 `window.location.protocol`이 `http:`/`https:`이면(=배포 환경) `data-local` 카드를 비활성화/숨김 처리. 로컬에서 직접 파일을 열면 정상 동작.
+- 프로젝트가 사라지면 카드 삭제, 끝난 실험은 보관함(`.archive`)으로 이동
+- URL 변경 시 `href`와 `data-src`를 같이 고친다
 
 ## 관련 지침
 
