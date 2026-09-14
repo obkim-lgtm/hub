@@ -50,7 +50,7 @@
 
 빈 `span`(`exp-no`·`status`·`updated`·`access`)은 JS가 채운다. 직접 쓰지 않는다.
 
-**아이콘은 이모지 금지 — Tabler 선 아이콘**(2026-09-14 올립, 노트 배경과 어울리게 색 줄이기). `card-icon`·`sub-icon` 안에 `<i class="ti ti-이름" aria-hidden="true"></i>`. 아이콘은 회색. 색은 벤치 라벨·카드 상단 탭(벤치 색, 목업 카드는 서비스 색)·상태 점(초록=가동/실험, 회색=나머지)에만 쓴다 — 상단 탭까지 빼면 너무 밋밋하다는 올립 피드백(2026-09-14). 이름은 tabler.io/icons에서 outline만.
+**아이콘은 이모지 금지 — Tabler 선 아이콘**(2026-09-14 올립, 노트 배경과 어울리게 색 줄이기). `card-icon`·`sub-icon` 안에 `<i class="ti ti-이름" aria-hidden="true"></i>`. 아이콘은 회색. 색은 벤치 라벨·카드 상단 탭(벤치 색, 목업 카드는 서비스 색)·목업 카드 서비스명(HIAI 보라·CLIPO 파랑)·상태 점(초록=가동/실험, 회색=나머지)에만 쓴다 — 상단 탭까지 빼면 너무 밋밋하다는 올립 피드백(2026-09-14). 이름은 tabler.io/icons에서 outline만.
 
 **서비스 Mock-up 벤치는 새 카드를 만들지 않는다.** 해당 서비스 인덱스 카드(`div.card.index-card`) 안 `.sub-list`에 한 줄 추가:
 
