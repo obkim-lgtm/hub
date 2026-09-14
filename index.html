@@ -384,6 +384,8 @@
     .bench.mockups { --accent: #1C1F24; --accent-bg: #EEEEEA; }
     .bench.mockups .bench-code { color: #416BFF; }
     .public-site { --accent: #0D9488; --accent-bg: #E2F5F2; }
+    .bench.personal .bench-code { color: #8D939C; }
+    .bench.archive .bench-code { color: #5C3A1E; }
     .bench.mockups .cards { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); }
     .card-service {
       font-size: 13px;
@@ -412,6 +414,52 @@
     .sub-date, .sub-note { font-size: 13px; color: var(--faint); white-space: nowrap; }
     .sub-arrow { width: 14px; height: 14px; flex-shrink: 0; color: var(--faint); transition: transform .15s, color .15s; }
     .sub-link:hover .sub-arrow { color: var(--accent); transform: translateX(2px); }
+
+    /* ── Lab motion ── */
+    .flask .surface { animation: bob 2.6s ease-in-out infinite; transform-box: fill-box; }
+    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+
+    .card-icon { position: relative; }
+    .card-icon::before, .card-icon::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .card-icon::before { width: 6px; height: 6px; left: 7px; bottom: 7px; }
+    .card-icon::after  { width: 4px; height: 4px; right: 8px; bottom: 10px; }
+    .card:not(.is-disabled):hover .card-icon::before { animation: icon-pop 1.2s ease-out infinite; }
+    .card:not(.is-disabled):hover .card-icon::after  { animation: icon-pop 1.2s .4s ease-out infinite; }
+    @keyframes icon-pop {
+      0%   { transform: translateY(0) scale(.5); opacity: 0; }
+      20%  { opacity: .75; }
+      100% { transform: translateY(-28px) scale(1); opacity: 0; }
+    }
+
+    .corner-lab {
+      position: fixed;
+      right: 28px;
+      bottom: 18px;
+      width: 92px;
+      height: 120px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .corner-lab .cb { opacity: 0; transform-box: fill-box; animation: corner-rise 4.2s ease-in infinite; }
+    .corner-lab .cb2 { animation-delay: 1.1s; animation-duration: 4.8s; }
+    .corner-lab .cb3 { animation-delay: 2.3s; animation-duration: 3.9s; }
+    .corner-lab .cb4 { animation-delay: 3.2s; animation-duration: 5.2s; }
+    @keyframes corner-rise {
+      0%   { transform: translate(0, 0); opacity: 0; }
+      12%  { opacity: .9; }
+      50%  { transform: translate(4px, -52px); }
+      100% { transform: translate(-3px, -104px); opacity: 0; }
+    }
+    .corner-lab .wave { animation: wave 2.4s linear infinite; }
+    @keyframes wave { to { transform: translateX(60px); } }
+    @media (max-width: 1359px) { .corner-lab { display: none; } }
 
     /* ── Footer ── */
     footer {
@@ -442,7 +490,9 @@
     .owner-link:hover { color: var(--ink); }
 
     @media (prefers-reduced-motion: reduce) {
-      .flask .bubble, .dot::after { animation: none !important; }
+      .flask .bubble, .flask .surface, .dot::after, .card-icon::before, .card-icon::after,
+      .corner-lab .cb, .corner-lab .wave { animation: none !important; }
+      .corner-lab .cb { opacity: .5; }
       .flask .bubble { opacity: .6; }
       .card { transition: none; }
     }
@@ -479,7 +529,7 @@
       <circle class="bubble" cx="56" cy="92" r="2.5" fill="#EA580C"/>
       <path d="M40 8h32M45 8v36L14 108a10 10 0 0 0 9 16h66a10 10 0 0 0 9-16L67 44V8" stroke="#1C1F24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M27 84h58l13 24a10 10 0 0 1-9 16H23a10 10 0 0 1-9-16z" fill="#059669" fill-opacity=".16"/>
-      <path d="M27 84h58" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>
+      <path class="surface" d="M27 84h58" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>
       <path d="M50 22h8M50 34h12" stroke="#1C1F24" stroke-width="2" stroke-linecap="round" opacity=".35"/>
     </svg>
   </header>
@@ -754,6 +804,22 @@
     <a class="owner-link" href="http://127.0.0.1:8735/" target="_blank" rel="noopener" title="내 PC에서 trellis serve 실행 중일 때만 열려요">🗂️ 작업 일지 (내 PC)</a>
   </footer>
 
+  <svg class="corner-lab" viewBox="0 0 120 150" fill="none" aria-hidden="true">
+    <defs>
+      <clipPath id="corner-bulb"><circle cx="60" cy="106" r="31"/></clipPath>
+    </defs>
+    <g clip-path="url(#corner-bulb)">
+      <path class="wave" d="M-60 104 q15 -6 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 V150 H-60 Z" fill="#416BFF" fill-opacity=".18"/>
+    </g>
+    <circle class="cb cb1" cx="56" cy="124" r="4" fill="#416BFF"/>
+    <circle class="cb cb2" cx="64" cy="126" r="3" fill="#7E44FB"/>
+    <circle class="cb cb3" cx="60" cy="122" r="2.5" fill="#0D9488"/>
+    <circle class="cb cb4" cx="66" cy="120" r="2" fill="#EA580C"/>
+    <path d="M52 28h16" stroke="#1C1F24" stroke-width="3" stroke-linecap="round"/>
+    <path d="M54 28v44.5a34 34 0 1 0 12 0V28" stroke="#1C1F24" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M42 98a20 20 0 0 1 8-12" stroke="#1C1F24" stroke-width="2" stroke-linecap="round" opacity=".25"/>
+  </svg>
+
 </div>
 
 <script>
@@ -869,14 +935,32 @@
     });
   }
 
+  var reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function setCount(id, n) {
+    var el = document.getElementById(id);
+    if (el.dataset.val === String(n)) return;
+    var from = Number(el.dataset.val || 0);
+    el.dataset.val = n;
+    if (reduceMotion || el.dataset.done) { el.innerHTML = n + '<small>개</small>'; return; }
+    el.dataset.done = '1';
+    var t0 = null, dur = 700;
+    (function step(t) {
+      if (!t0) t0 = t;
+      var k = Math.min(1, (t - t0) / dur), v = Math.round(from + (n - from) * (1 - Math.pow(1 - k, 3)));
+      el.innerHTML = v + '<small>개</small>';
+      if (k < 1) requestAnimationFrame(step);
+    })(performance.now());
+    requestAnimationFrame(function () {});
+  }
+
   function renderStats() {
     var active = cards.filter(function (c) { return !c.closest('.archive'); });
     var dated = active.filter(function (c) { return !c.dataset.live; });
     var recent = dated.filter(function (c) { return daysSince(c.dataset.updated) <= 30; }).length;
     var last = dated.map(function (c) { return daysSince(c.dataset.updated); })
       .reduce(function (m, n) { return Math.min(m, n); }, Infinity);
-    document.getElementById('stat-total').innerHTML = active.length + '<small>개</small>';
-    document.getElementById('stat-recent').innerHTML = recent + '<small>개</small>';
+    setCount('stat-total', active.length);
+    setCount('stat-recent', recent);
     document.getElementById('stat-last').textContent = relative(last);
 
     document.querySelectorAll('.bench').forEach(function (b) {
