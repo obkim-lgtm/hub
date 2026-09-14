@@ -948,9 +948,9 @@
       if (!t0) t0 = t;
       var k = Math.min(1, (t - t0) / dur), v = Math.round(from + (n - from) * (1 - Math.pow(1 - k, 3)));
       el.innerHTML = v + '<small>개</small>';
-      if (k < 1) requestAnimationFrame(step);
+      if (k < 1 && el.dataset.val === String(n)) requestAnimationFrame(step);
     })(performance.now());
-    requestAnimationFrame(function () {});
+    setTimeout(function () { if (el.dataset.val === String(n)) el.innerHTML = n + '<small>개</small>'; }, dur + 80);
   }
 
   function renderStats() {
