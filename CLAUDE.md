@@ -44,12 +44,18 @@
 <a class="card" href="URL" target="_blank" rel="noopener" data-src="clipo_mockup:output/foo.html" data-created="YYYY-MM-DD" data-updated="YYYY-MM-DD">
   <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
   <div class="card-head"><div class="card-icon">🌸</div><div class="card-name">카드 제목</div></div>
-  <div class="card-desc">한두 줄 설명. 3줄 넘으면 잘린다.</div>
+  <ul class="card-desc"><li>무엇인지 한 줄</li><li>핵심 흐름·기능 한 줄</li></ul>
   <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
 </a>
 ```
 
 빈 `span`(`exp-no`·`status`·`updated`·`access`)은 JS가 채운다. 직접 쓰지 않는다.
+
+### 문구 규칙 (2026-09-14)
+
+- **개조식 2~3줄**, 한 줄은 짧게. 문단 금지.
+- 처음 보는 사람 기준 — 사내 약어(OCR·세특 단독 등)·사람 이름·케이스용 가짜 학생 이름 금지. 필요하면 풀어 쓴다.
+- 흐름은 `A → B → C` 한 줄로.
 
 ### 속성 규칙
 
