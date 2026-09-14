@@ -42,7 +42,7 @@
 ```html
 <a class="card" href="URL" target="_blank" rel="noopener" data-src="clipo_mockup:output/foo.html" data-created="YYYY-MM-DD" data-updated="YYYY-MM-DD">
   <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-  <div class="card-head"><div class="card-icon">🌸</div><div class="card-name">카드 제목</div></div>
+  <div class="card-head"><div class="card-icon"><i class="ti ti-flask" aria-hidden="true"></i></div><div class="card-name">카드 제목</div></div>
   <ul class="card-desc"><li>무엇인지 한 줄</li></ul>
   <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
 </a>
@@ -50,10 +50,12 @@
 
 빈 `span`(`exp-no`·`status`·`updated`·`access`)은 JS가 채운다. 직접 쓰지 않는다.
 
+**아이콘은 이모지 금지 — Tabler 선 아이콘**(2026-09-14 올립, 노트 배경과 어울리게 색 줄이기). `card-icon`·`sub-icon` 안에 `<i class="ti ti-이름" aria-hidden="true"></i>`. 아이콘은 회색, 색은 벤치 라벨·상태 점(초록=가동/실험, 회색=나머지)에만 쓴다. 이름은 tabler.io/icons에서 outline만.
+
 **서비스 Mock-up 벤치는 새 카드를 만들지 않는다.** 해당 서비스 인덱스 카드(`div.card.index-card`) 안 `.sub-list`에 한 줄 추가:
 
 ```html
-<a class="sub-link" href="URL" target="_blank" rel="noopener" data-src="clipo_mockup:output/foo.html" data-updated="YYYY-MM-DD"><span class="sub-icon">🌸</span><span class="sub-name">화면 이름</span><span class="sub-date"></span><svg class="sub-arrow" …/></a>
+<a class="sub-link" href="URL" target="_blank" rel="noopener" data-src="clipo_mockup:output/foo.html" data-updated="YYYY-MM-DD"><span class="sub-icon"><i class="ti ti-flask" aria-hidden="true"></i></span><span class="sub-name">화면 이름</span><span class="sub-date"></span><svg class="sub-arrow" …/></a>
 ```
 
 - 카드의 최근 업데이트 = 하위 줄 중 가장 최근 날짜(JS 계산)

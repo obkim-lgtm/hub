@@ -27,6 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -40,10 +41,10 @@
       --card: #FFFFFF;
       --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Consolas, monospace;
 
-      --st-live: #0891B2;
+      --st-live: #16A34A;
       --st-active: #16A34A;
-      --st-watch: #D97706;
-      --st-dormant: #A1A6AE;
+      --st-watch: #8D939C;
+      --st-dormant: #C9CCD1;
       --st-stored: #A1A6AE;
     }
 
@@ -188,7 +189,7 @@
     .dot.watch  { --c: var(--st-watch); }
     .dot.dormant{ --c: var(--st-dormant); }
     .dot.stored { background: transparent; box-shadow: inset 0 0 0 1.5px var(--st-stored); }
-    .dot.live::after, .dot.active::after {
+    .dot.live::after {
       content: '';
       position: absolute; inset: 0;
       border-radius: 50%;
@@ -280,7 +281,7 @@
       top: -1px; left: 20px;
       width: 36px; height: 3px;
       border-radius: 0 0 3px 3px;
-      background: var(--accent);
+      background: #D6D3CA;
     }
     a.card:hover {
       border-color: var(--ink);
@@ -315,13 +316,15 @@
     .card-icon {
       width: 40px; height: 40px;
       border-radius: 10px;
-      background: var(--accent-bg);
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--muted);
       display: inline-flex;
       align-items: center;
       justify-content: center;
       line-height: 1;
       vertical-align: middle;
-      font-size: 20px;
+      font-size: 21px;
       flex-shrink: 0;
     }
     .card-name {
@@ -391,7 +394,7 @@
     .card-service {
       font-size: 13px;
       font-weight: 700;
-      color: var(--accent);
+      color: var(--muted);
       margin-bottom: 2px;
       word-break: keep-all;
     }
@@ -408,17 +411,17 @@
       transition: background .15s;
     }
     .sub-link + .sub-link { box-shadow: inset 0 1px 0 var(--line); }
-    .sub-link:hover { background: var(--accent-bg); box-shadow: none; }
+    .sub-link:hover { background: rgba(28, 31, 36, .045); box-shadow: none; }
     .sub-link.sub-child { padding-left: 24px; font-size: 14px; }
     .sub-link.sub-child + .sub-link, .sub-link + .sub-link.sub-child { box-shadow: none; }
     .sub-child .sub-icon { color: var(--faint); font-size: 14px; }
     .sub-child .sub-name { font-weight: 500; color: var(--muted); }
     .sub-link:hover + .sub-link { box-shadow: none; }
-    .sub-icon { width: 22px; flex-shrink: 0; font-size: 16px; line-height: 1; text-align: center; }
+    .sub-icon { width: 22px; flex-shrink: 0; font-size: 18px; line-height: 1; text-align: center; color: var(--faint); }
     .sub-name { flex: 1; font-weight: 600; word-break: keep-all; }
     .sub-date, .sub-note { font-size: 13px; color: var(--faint); white-space: nowrap; }
     .sub-arrow { width: 14px; height: 14px; flex-shrink: 0; color: var(--faint); transition: transform .15s, color .15s; }
-    .sub-link:hover .sub-arrow { color: var(--accent); transform: translateX(2px); }
+    .sub-link:hover .sub-arrow { color: var(--ink); transform: translateX(2px); }
 
     /* ── Lab motion ── */
     .flask .surface { animation: bob 2.6s ease-in-out infinite; transform-box: fill-box; }
@@ -573,21 +576,21 @@
 
         <a class="card" data-order="4" href="https://internal-tool.pages.ddapp.io/contest-review/" target="_blank" rel="noopener" data-created="2026-09-14" data-updated="2026-09-14">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon">📋</div><div class="card-name">에크연 공모전 1차 결과</div></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-clipboard-check" aria-hidden="true"></i></div><div class="card-name">에크연 공모전 1차 결과</div></div>
           <ul class="card-desc"><li>AI 채점 활용 평가 설계 공모전 응모작 검토</li></ul>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
         <a class="card" data-order="2" href="http://192.168.50.76:8081/" target="_blank" rel="noopener" data-src="clipo_traffic_analysis:data/training_roi_260910" data-created="2026-09-10" data-updated="2026-09-14">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon">🧑‍🏫</div><div class="card-name">CLIPO 연수 강사 현황</div></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-presentation" aria-hidden="true"></i></div><div class="card-name">CLIPO 연수 강사 현황</div></div>
           <ul class="card-desc"><li>연수가 가입·사용·매출로 이어졌는지 강사별 확인</li></ul>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
         <a class="card" data-order="1" href="https://internal-tool.pages.ddapp.io/clipo-analytics/pulse.html" target="_blank" rel="noopener" data-src="clipo_analytics:pulse.json" data-created="2026-09-03" data-updated="2026-09-14" data-live="매일 자동 갱신">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon">📊</div><div class="card-name">CLIPO 주요 지표 대시보드</div></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-chart-line" aria-hidden="true"></i></div><div class="card-name">CLIPO 주요 지표 대시보드</div></div>
           <ul class="card-desc"><li>유입·활성·재방문·매출을 차트로 확인</li></ul>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
@@ -595,21 +598,21 @@
 
         <a class="card" data-order="3" href="https://internal-tool.pages.ddapp.io/clipo-analytics/usage.html" target="_blank" rel="noopener" data-src="clipo_analytics:usage.html" data-created="2026-08-02" data-updated="2026-09-02">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon">📈</div><div class="card-name">CLIPO 이용 분석 리포트</div></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-report-analytics" aria-hidden="true"></i></div><div class="card-name">CLIPO 이용 분석 리포트</div></div>
           <ul class="card-desc"><li>첫 방문부터 유료 갱신까지 선생님 이용 여정</li></ul>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
         <a class="card" data-order="5" href="https://internal-tool.pages.ddapp.io/DD_Attendance/public.html" target="_blank" rel="noopener" data-src="dd_attendance:." data-created="2026-04-23" data-updated="2026-08-06" data-live="매일 자동 갱신">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon">📅</div><div class="card-name">근태 캘린더</div></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-calendar-user" aria-hidden="true"></i></div><div class="card-name">근태 캘린더</div></div>
           <ul class="card-desc"><li>팀원 출근·외근·연차를 월 캘린더 한 장으로</li></ul>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
         <a class="card" data-order="6" href="http://192.168.50.76:8080/" target="_blank" rel="noopener" data-src="team-schedule-server:src" data-created="2026-07-06" data-updated="2026-07-06" data-live="상시 편집">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon">🗓️</div><div class="card-name">팀 캘린더</div></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-calendar-event" aria-hidden="true"></i></div><div class="card-name">팀 캘린더</div></div>
           <ul class="card-desc"><li>배포·운영·기획·디자인 일정을 한 화면에</li></ul>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
@@ -630,29 +633,29 @@
 
         <div class="card index-card hiai" data-src="hiai_mockup:output/index.html" data-created="2026-07-15" data-updated="2026-09-09">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon">🗂️</div><div><div class="card-service">경기도교육청 AI 서·논술형 평가지원시스템</div><div class="card-name">2026 과업 목업 인덱스</div></div></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-folders" aria-hidden="true"></i></div><div><div class="card-service">경기도교육청 AI 서·논술형 평가지원시스템</div><div class="card-name">2026 과업 목업 인덱스</div></div></div>
           <nav class="sub-list" aria-label="경기도교육청 AI 서·논술형 평가지원시스템 목업">
-            <a class="sub-link" href="https://obkim-lgtm.github.io/hiai-mockup/output/eval_home_v10.html" target="_blank" rel="noopener" data-src="hiai_mockup:output/eval_home_v10.html" data-updated="2026-08-27"><span class="sub-icon">🏠</span><span class="sub-name">평가 홈 · 설문조사</span><span class="sub-note">8/24 배포</span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
-            <a class="sub-link" href="https://obkim-lgtm.github.io/hiai-mockup/output/task_ocr_review_v1.html" target="_blank" rel="noopener" data-src="hiai_mockup:output/task_ocr_review_v1.html" data-updated="2026-08-27"><span class="sub-icon">🔍</span><span class="sub-name">과제물 인식 확인·수정</span><span class="sub-note">8/31 개발 완료</span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+            <a class="sub-link" href="https://obkim-lgtm.github.io/hiai-mockup/output/eval_home_v10.html" target="_blank" rel="noopener" data-src="hiai_mockup:output/eval_home_v10.html" data-updated="2026-08-27"><span class="sub-icon"><i class="ti ti-home" aria-hidden="true"></i></span><span class="sub-name">평가 홈 · 설문조사</span><span class="sub-note">8/24 배포</span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+            <a class="sub-link" href="https://obkim-lgtm.github.io/hiai-mockup/output/task_ocr_review_v1.html" target="_blank" rel="noopener" data-src="hiai_mockup:output/task_ocr_review_v1.html" data-updated="2026-08-27"><span class="sub-icon"><i class="ti ti-scan" aria-hidden="true"></i></span><span class="sub-name">과제물 인식 확인·수정</span><span class="sub-note">8/31 개발 완료</span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
             <a class="sub-link sub-child" href="https://obkim-lgtm.github.io/hiai-mockup/output/backoffice_ocr_review_v1.html?v=1" target="_blank" rel="noopener" data-src="hiai_mockup:output/backoffice_ocr_review_v1.html" data-updated="2026-09-10"><span class="sub-icon">↳</span><span class="sub-name">인식 결과 검수 (관리자)</span><span class="sub-note">9월 배포 예정</span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
-            <a class="sub-link" href="https://obkim-lgtm.github.io/hiai-mockup/output/evaluation_design_v9.html?v=1" target="_blank" rel="noopener" data-src="hiai_mockup:output/evaluation_design_v9.html" data-updated="2026-09-14"><span class="sub-icon">🧩</span><span class="sub-name">설계 고도화</span><span class="sub-note">10월 예정</span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
-            <a class="sub-link" href="https://obkim-lgtm.github.io/hiai-mockup/output/scoring_highlight_v1.html" target="_blank" rel="noopener" data-src="hiai_mockup:output/scoring_highlight_v1.html" data-updated="2026-08-27"><span class="sub-icon">🤖</span><span class="sub-name">AI 채점 결과 개선</span><span class="sub-note">10월 예정</span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
-            <a class="sub-link" href="https://obkim-lgtm.github.io/hiai-mockup/output/report_v2.html" target="_blank" rel="noopener" data-src="hiai_mockup:output/report_v2.html" data-updated="2026-08-27"><span class="sub-icon">📊</span><span class="sub-name">평가 리포트 개선</span><span class="sub-note">10월 예정</span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+            <a class="sub-link" href="https://obkim-lgtm.github.io/hiai-mockup/output/evaluation_design_v9.html?v=1" target="_blank" rel="noopener" data-src="hiai_mockup:output/evaluation_design_v9.html" data-updated="2026-09-14"><span class="sub-icon"><i class="ti ti-puzzle" aria-hidden="true"></i></span><span class="sub-name">설계 고도화</span><span class="sub-note">10월 예정</span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+            <a class="sub-link" href="https://obkim-lgtm.github.io/hiai-mockup/output/scoring_highlight_v1.html" target="_blank" rel="noopener" data-src="hiai_mockup:output/scoring_highlight_v1.html" data-updated="2026-08-27"><span class="sub-icon"><i class="ti ti-robot" aria-hidden="true"></i></span><span class="sub-name">AI 채점 결과 개선</span><span class="sub-note">10월 예정</span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+            <a class="sub-link" href="https://obkim-lgtm.github.io/hiai-mockup/output/report_v2.html" target="_blank" rel="noopener" data-src="hiai_mockup:output/report_v2.html" data-updated="2026-08-27"><span class="sub-icon"><i class="ti ti-chart-bar" aria-hidden="true"></i></span><span class="sub-name">평가 리포트 개선</span><span class="sub-note">10월 예정</span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
           </nav>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </div>
 
         <div class="card index-card clipo" data-created="2026-05-08" data-updated="2026-09-14">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon">🗂️</div><div><div class="card-service">CLIPO</div><div class="card-name">2026 과업 목업 인덱스</div></div></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-folders" aria-hidden="true"></i></div><div><div class="card-service">CLIPO</div><div class="card-name">2026 과업 목업 인덱스</div></div></div>
           <nav class="sub-list" aria-label="CLIPO 목업">
-            <a class="sub-link" href="https://obkim-lgtm.github.io/clipo-mockup/output/class_scoring_detail_v3_260623.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/class_scoring_detail_v3_260623.html" data-updated="2026-09-14"><span class="sub-icon">🔍</span><span class="sub-name">과제물 인식 · AI 채점</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+            <a class="sub-link" href="https://obkim-lgtm.github.io/clipo-mockup/output/class_scoring_detail_v3_260623.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/class_scoring_detail_v3_260623.html" data-updated="2026-09-14"><span class="sub-icon"><i class="ti ti-scan" aria-hidden="true"></i></span><span class="sub-name">과제물 인식 · AI 채점</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
             <a class="sub-link sub-child" href="https://obkim-lgtm.github.io/clipo-mockup/output/backoffice_ocr_review_v1_260910.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/backoffice_ocr_review_v1_260910.html" data-updated="2026-09-14"><span class="sub-icon">↳</span><span class="sub-name">인식 결과 검수 (관리자)</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
-            <a class="sub-link" href="https://obkim-lgtm.github.io/clipo-mockup/output/co_teacher_review_v1_260611.html?home=1" target="_blank" rel="noopener" data-src="clipo_mockup:output/co_teacher_review_v1_260611.html" data-updated="2026-08-28"><span class="sub-icon">📚</span><span class="sub-name">클리포 수업</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
-            <a class="sub-link" href="https://obkim-lgtm.github.io/clipo-mockup/output/class_scoring_detail_v1_260512.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/class_scoring_detail_v1_260512.html" data-updated="2026-08-28"><span class="sub-icon">🎒</span><span class="sub-name">초등 채점·결과 공개</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
-            <a class="sub-link" href="https://obkim-lgtm.github.io/clipo-mockup/output/subscription_manage_v1_260513.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/subscription_manage_v1_260513.html" data-updated="2026-07-29"><span class="sub-icon">💳</span><span class="sub-name">이용권 관리</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
-            <a class="sub-link" href="https://obkim-lgtm.github.io/clipo-mockup/output/quick_seteuk_dev_v1_260528.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/quick_seteuk_dev_v1_260528.html" data-updated="2026-06-17"><span class="sub-icon">⚡</span><span class="sub-name">세특 간편 생성기</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
-            <a class="sub-link" href="https://obkim-lgtm.github.io/clipo-mockup/output/creative_activity_list_v6_260507.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/creative_activity_list_v6_260507.html" data-updated="2026-06-12"><span class="sub-icon">📝</span><span class="sub-name">창의적 체험활동</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+            <a class="sub-link" href="https://obkim-lgtm.github.io/clipo-mockup/output/co_teacher_review_v1_260611.html?home=1" target="_blank" rel="noopener" data-src="clipo_mockup:output/co_teacher_review_v1_260611.html" data-updated="2026-08-28"><span class="sub-icon"><i class="ti ti-book" aria-hidden="true"></i></span><span class="sub-name">클리포 수업</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+            <a class="sub-link" href="https://obkim-lgtm.github.io/clipo-mockup/output/class_scoring_detail_v1_260512.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/class_scoring_detail_v1_260512.html" data-updated="2026-08-28"><span class="sub-icon"><i class="ti ti-backpack" aria-hidden="true"></i></span><span class="sub-name">초등 채점·결과 공개</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+            <a class="sub-link" href="https://obkim-lgtm.github.io/clipo-mockup/output/subscription_manage_v1_260513.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/subscription_manage_v1_260513.html" data-updated="2026-07-29"><span class="sub-icon"><i class="ti ti-credit-card" aria-hidden="true"></i></span><span class="sub-name">이용권 관리</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+            <a class="sub-link" href="https://obkim-lgtm.github.io/clipo-mockup/output/quick_seteuk_dev_v1_260528.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/quick_seteuk_dev_v1_260528.html" data-updated="2026-06-17"><span class="sub-icon"><i class="ti ti-bolt" aria-hidden="true"></i></span><span class="sub-name">세특 간편 생성기</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+            <a class="sub-link" href="https://obkim-lgtm.github.io/clipo-mockup/output/creative_activity_list_v6_260507.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/creative_activity_list_v6_260507.html" data-updated="2026-06-12"><span class="sub-icon"><i class="ti ti-pencil" aria-hidden="true"></i></span><span class="sub-name">창의적 체험활동</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
           </nav>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </div>
@@ -672,21 +675,21 @@
 
         <a class="card" href="https://training.clipo.ai/" target="_blank" rel="noopener" data-src="clipo_training:output/training_v2_260410.html" data-created="2026-04-10" data-updated="2026-08-05">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon">🎓</div><div class="card-name">CLIPO 교사 연수</div></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-school" aria-hidden="true"></i></div><div class="card-name">CLIPO 교사 연수</div></div>
           <ul class="card-desc"><li>AI 활용 수업·평가·생활기록부 무료 연수 안내·신청</li></ul>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
         <a class="card" href="https://obkim-lgtm.github.io/clipo-contest/" target="_blank" rel="noopener" data-src="clipo_contest:." data-created="2026-07-20" data-updated="2026-08-24">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon">🏆</div><div class="card-name">에크연 공모전 1차 안내</div></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-trophy" aria-hidden="true"></i></div><div class="card-name">에크연 공모전 1차 안내</div></div>
           <ul class="card-desc"><li>AI 채점이 잘 되는 평가 설계 노하우 공모</li></ul>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
         <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/guide/examples.html" target="_blank" rel="noopener" data-src="clipo_mockup:guide/examples.html" data-created="2026-09-08" data-updated="2026-09-10">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon">🧪</div><div class="card-name">AI 채점 과목별 예시</div></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-flask" aria-hidden="true"></i></div><div class="card-name">AI 채점 과목별 예시</div></div>
           <ul class="card-desc"><li>과목별 실제 예시로 AI 채점 방식 이해</li></ul>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
@@ -712,35 +715,35 @@
 
           <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/focus_log_v1_260728.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/focus_log_v1_260728.html" data-created="2026-07-28" data-updated="2026-08-19">
             <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-            <div class="card-head"><div class="card-icon">🖥️</div><div class="card-name">화면 이탈 집중 로그</div></div>
+            <div class="card-head"><div class="card-icon"><i class="ti ti-device-desktop" aria-hidden="true"></i></div><div class="card-name">화면 이탈 집중 로그</div></div>
             <ul class="card-desc"><li>답안 작성 중 다른 창으로 나간 기록 남기기</li></ul>
             <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
           </a>
 
           <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/kkamangi_hub_260704.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/kkamangi_hub_260704.html" data-created="2026-07-04" data-updated="2026-07-04">
             <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-            <div class="card-head"><div class="card-icon">⚡</div><div class="card-name">AI 채점 옵션</div></div>
+            <div class="card-head"><div class="card-icon"><i class="ti ti-adjustments" aria-hidden="true"></i></div><div class="card-name">AI 채점 옵션</div></div>
             <ul class="card-desc"><li>채점 방식 선택, 한 줄 요약 빠른 채점</li></ul>
             <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
           </a>
 
           <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/affiliation_workspace_v1_260622.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/affiliation_workspace_v1_260622.html" data-created="2026-06-22" data-updated="2026-06-22">
             <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-            <div class="card-head"><div class="card-icon">🔀</div><div class="card-name">겸임 · 복수 학교</div></div>
+            <div class="card-head"><div class="card-icon"><i class="ti ti-arrows-exchange" aria-hidden="true"></i></div><div class="card-name">겸임 · 복수 학교</div></div>
             <ul class="card-desc"><li>한 계정으로 여러 학교 오가기</li></ul>
             <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
           </a>
 
           <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/affiliation_change_v3_260616.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/affiliation_change_v3_260616.html" data-created="2026-06-16" data-updated="2026-06-22">
             <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-            <div class="card-head"><div class="card-icon">🏫</div><div class="card-name">소속 변경 · 데이터 보존</div></div>
+            <div class="card-head"><div class="card-icon"><i class="ti ti-building" aria-hidden="true"></i></div><div class="card-name">소속 변경 · 데이터 보존</div></div>
             <ul class="card-desc"><li>학교를 옮겨도 작업물 유지</li></ul>
             <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
           </a>
 
           <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/quick_seteuk_list_v1_260526.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/quick_seteuk_list_v1_260526.html" data-created="2026-05-26" data-updated="2026-05-28">
             <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-            <div class="card-head"><div class="card-icon">⚡</div><div class="card-name">세특 간편 생성기 (초기안)</div></div>
+            <div class="card-head"><div class="card-icon"><i class="ti ti-bolt" aria-hidden="true"></i></div><div class="card-name">세특 간편 생성기 (초기안)</div></div>
             <ul class="card-desc"><li>3단계로 재구성한 초기안, 배포 제외</li></ul>
             <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
           </a>
@@ -748,14 +751,14 @@
 
           <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-revenue/" target="_blank" rel="noopener" data-src="_clipo-revenue:." data-created="2026-07-20" data-updated="2026-08-06">
             <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-            <div class="card-head"><div class="card-icon">📊</div><div class="card-name">클리포 매출 관리</div></div>
+            <div class="card-head"><div class="card-icon"><i class="ti ti-coin" aria-hidden="true"></i></div><div class="card-name">클리포 매출 관리</div></div>
             <ul class="card-desc"><li>채널별 매출 자동 보고, 7월 중단</li></ul>
             <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
           </a>
 
           <a class="card" href="https://obkim-lgtm.github.io/clipo-mockup/output/co_teacher_review_v1_260611.html" target="_blank" rel="noopener" data-src="clipo_mockup:output/co_teacher_review_v1_260611.html" data-created="2026-06-11" data-updated="2026-08-28">
             <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-            <div class="card-head"><div class="card-icon">🤝</div><div class="card-name">채점 결과 공동 확인</div></div>
+            <div class="card-head"><div class="card-icon"><i class="ti ti-users" aria-hidden="true"></i></div><div class="card-name">채점 결과 공동 확인</div></div>
             <ul class="card-desc"><li>여러 선생님이 함께 채점 결과 확인</li></ul>
             <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
           </a>
@@ -763,14 +766,14 @@
 
           <a class="card" href="https://internal-tool.pages.ddapp.io/clipo-cs/" target="_blank" rel="noopener" data-src="clipo_cs:." data-created="2026-04-30" data-updated="2026-07-20">
             <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-            <div class="card-head"><div class="card-icon">💬</div><div class="card-name">CLIPO CS 지원</div></div>
+            <div class="card-head"><div class="card-icon"><i class="ti ti-message-circle" aria-hidden="true"></i></div><div class="card-name">CLIPO CS 지원</div></div>
             <ul class="card-desc"><li>고객 문의 답변 초안 AI 생성</li></ul>
             <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
           </a>
 
           <a class="card" href="https://internal-tool.pages.ddapp.io/hiai-cs/" target="_blank" rel="noopener" data-src="hiai_cs:." data-created="2026-04-30" data-updated="2026-08-06">
             <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-            <div class="card-head"><div class="card-icon">💬</div><div class="card-name">평가지원시스템 CS 지원</div></div>
+            <div class="card-head"><div class="card-icon"><i class="ti ti-message-circle" aria-hidden="true"></i></div><div class="card-name">평가지원시스템 CS 지원</div></div>
             <ul class="card-desc"><li>선생님 문의 답변 초안 AI 생성</li></ul>
             <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
           </a>
