@@ -21,7 +21,7 @@ PURPLE = (126, 68, 251)
 ORANGE = (234, 88, 12)
 TEAL = (13, 148, 136)
 
-DESC_LINES = ["교육 서비스를 기획하며 직접 만든", "사내 도구 · 서비스 목업 · 공개 페이지 모음"]
+DESC_LINES = ["교육 서비스를 기획하며 만든", "사내 도구 · 서비스 목업 · 공개 페이지 모음"]
 BENCHES = [("사내 도구", ORANGE), ("서비스 Mock-up", BLUE), ("외부 공개 서비스", TEAL)]
 
 
@@ -61,7 +61,7 @@ def og(path):
     fr = font(FONT_R, 26, S)
     d.text((L, 120 * S), "OLIVIA LAB", font=fb, fill=INK)
     w = d.textlength("OLIVIA LAB", font=fb)
-    d.text((L + w, 120 * S), "  ·  교육 AI 기획 실험 노트", font=fr, fill=MUTED)
+    d.text((L + w, 120 * S), "  ·  AI로 직접 분석하고 만든 것들", font=fr, fill=MUTED)
 
     # title
     d.text((L, 168 * S), "올립의 실험실", font=font(FONT_B, 104, S), fill=INK)
