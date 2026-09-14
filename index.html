@@ -428,7 +428,7 @@
 
   <header class="lab-header">
     <div>
-      <div class="eyebrow"><b>OLIP LAB</b> · 교육 AI 기획 실험 노트</div>
+      <div class="eyebrow"><b>OLIVIA LAB</b> · 교육 AI 기획 실험 노트</div>
       <h1 class="lab-title">올립의 실험실</h1>
       <p class="lab-sub">CLIPO와 AI 서·논술형 평가를 기획하면서, 말로 설명하기 전에 먼저 만들어 본 도구와 화면들이에요.</p>
     </div>
@@ -712,7 +712,7 @@
   </main>
 
   <footer>
-    <span>OLIP LAB · obkim-lgtm.github.io/hub · 페이지 정리 <span id="built-at">2026-09-14</span></span>
+    <span>OLIVIA LAB · obkim-lgtm.github.io/hub · 페이지 정리 <span id="built-at">2026-09-14</span></span>
     <a class="owner-link" href="http://127.0.0.1:8735/" target="_blank" rel="noopener" title="내 PC에서 trellis serve 실행 중일 때만 열려요">🗂️ 작업 일지 (내 PC)</a>
   </footer>
 
@@ -893,7 +893,7 @@
     if (current !== 'all') applyFilter();
   }
   Object.keys(groups).forEach(function (key) {
-    var g = groups[key], ck = 'olip-lab:' + key, hit = cacheGet(ck);
+    var g = groups[key], ck = 'olivia-lab:' + key, hit = cacheGet(ck);
     if (hit) { apply(g, hit); return; }
     if (!window.fetch) return;
     fetch('https://api.github.com/repos/obkim-lgtm/' + g.repo + '/commits?per_page=1&path=' + encodeURIComponent(g.path))
