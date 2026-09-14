@@ -112,31 +112,33 @@ def og(path):
 
 
 def icon(size, path, background):
+    """헤더 플라스크(viewBox -12 -2 136 136)를 정사각 아이콘으로."""
     S = 8
-    N = 32
-    px = size * S / N
-    img = Image.new("RGBA", (size * S, size * S), PAPER + (255,) if background else (0, 0, 0, 0))
+    W = size * S
+    img = Image.new("RGBA", (W, W), PAPER + (255,) if background else (0, 0, 0, 0))
     d = ImageDraw.Draw(img, "RGBA")
-    pad = 0.12 if background else 0
-    k = px * (1 - 2 * pad)
-    off = size * S * pad
-    P = lambda pts: [(off + x * k, off + y * k) for x, y in pts]
-    body = [(13, 4), (13, 12), (5.4, 24.5), (5.2, 26.6), (6.2, 28.2), (8, 29),
-            (24, 29), (25.8, 28.2), (26.8, 26.6), (26.6, 24.5), (19, 12), (19, 4)]
-    d.polygon(P(body), fill=(255, 255, 255))
-    liquid = [(8.6, 21), (23.4, 21), (26.6, 24.5), (26.8, 26.6), (25.8, 28.2), (24, 29),
-              (8, 29), (6.2, 28.2), (5.2, 26.6), (5.4, 24.5)]
-    d.polygon(P(liquid), fill=GREEN)
-    for cx, cy, r, col in [(14, 17, 1.6, BLUE), (18, 14.5, 1.2, ORANGE)]:
-        d.ellipse([off + (cx - r) * k, off + (cy - r) * k, off + (cx + r) * k, off + (cy + r) * k], fill=col)
-    d.line(P(body + [body[0]]), fill=INK, width=max(1, int(2 * k)), joint="curve")
-    d.line(P([(11, 4), (21, 4)]), fill=INK, width=max(1, int(2 * k)))
+    pad = 0.10 if background else 0.0
+    k = W * (1 - 2 * pad) / 136
+    off = W * pad
+    P = lambda pts: [(off + (x + 12) * k, off + (y + 2) * k) for x, y in pts]
+    d.polygon(P(liquid_poly()), fill=GREEN + (72,))
+    d.line(P([(25.6, 84), (86.4, 84)]), fill=GREEN, width=max(1, int(5 * k)))
+    for cx, cy, r, col in [(52, 64, 7, BLUE), (62, 102, 5.5, PURPLE)]:
+        (x0, y0), (x1, y1) = P([(cx - r, cy - r), (cx + r, cy + r)])
+        d.ellipse([x0, y0, x1, y1], fill=col + (217,))
+    d.line(P(flask_outline()), fill=INK, width=max(1, int(7 * k)), joint="curve")
+    d.line(P([(38, 8), (74, 8)]), fill=INK, width=max(1, int(7 * k)))
+    for ax, ay in [(38, 8), (74, 8)]:
+        (cx, cy), = P([(ax, ay)])
+        rr = 3.5 * k
+        d.ellipse([cx - rr, cy - rr, cx + rr, cy + rr], fill=INK)
     img = img.resize((size, size), Image.LANCZOS)
     img.save(path, optimize=True)
 
 
 if __name__ == "__main__":
     og(os.path.join(HUB, "og.png"))
+    icon(32, os.path.join(HUB, "favicon-lab-32.png"), background=False)
     icon(32, os.path.join(HUB, "favicon-32.png"), background=False)
     icon(180, os.path.join(HUB, "apple-touch-icon.png"), background=True)
     print("og.png · favicon-32.png · apple-touch-icon.png 생성")
