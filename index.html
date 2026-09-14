@@ -976,7 +976,7 @@
   /* GitHub에 올라간 목업은 커밋 날짜를 실시간으로 확인 (1시간 캐시) */
   var TTL = 3600000;
   function cacheGet(k) {
-    try { var v = JSON.parse(localStorage.getItem(k)); return v && Date.now() - v.at < TTL ? v.date : null; }
+    try { var v = JSON.parse(localStorage.getItem(k)); return v && Date.now() - v.at < TTL ? (v.date || '') : null; }
     catch (e) { return null; }
   }
   function cacheSet(k, date) {
@@ -1000,10 +1000,10 @@
   }
   Object.keys(groups).forEach(function (key) {
     var g = groups[key], ck = 'olivia-lab:' + key, hit = cacheGet(ck);
-    if (hit) { apply(g, hit); return; }
+    if (hit !== null) { apply(g, hit); return; }
     if (!window.fetch) return;
     fetch('https://api.github.com/repos/obkim-lgtm/' + g.repo + '/commits?per_page=1&path=' + encodeURIComponent(g.path))
-      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (r) { if (!r.ok) { cacheSet(ck, ''); return []; } return r.json(); })
       .then(function (list) {
         var iso = list && list[0] && list[0].commit && list[0].commit.committer && list[0].commit.committer.date;
         if (iso) { cacheSet(ck, iso); apply(g, iso); }
