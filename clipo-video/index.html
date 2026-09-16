@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>클리포 소개 영상</title>
+<meta name="description" content="수행평가부터 생기부까지 — 선생님을 닮은 AI, 클리포 소개 영상 (2분 40초)">
+<meta property="og:title" content="선생님을 닮은 AI, 클리포">
+<meta property="og:description" content="수행평가부터 생기부까지, 선생님의 한 학기를 함께 설계하고, 채점하고, 기록합니다.">
+<meta property="og:image" content="https://obkim-lgtm.github.io/hub/clipo-video/poster.jpg">
+<meta property="og:type" content="video.other">
+<meta name="theme-color" content="#0b1230">
+<link rel="icon" href="../favicon.svg">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #0b1230; color: #fff; font-family: Pretendard, "Pretendard GOV", -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; }
+  body { min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; padding-bottom: max(16px, env(safe-area-inset-bottom)); background: radial-gradient(ellipse 80% 55% at 50% 40%, #1a2a6a 0%, #0b1230 65%); }
+  .wrap { width: 100%; max-width: 960px; }
+  .brand { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .brand b { font-size: 15px; letter-spacing: -0.2px; color: #a9c2ff; font-weight: 700; }
+  .brand span { font-size: 13px; color: rgba(255,255,255,.55); }
+  .player { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 16px; overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,.55); }
+  video { width: 100%; height: 100%; display: block; background: #000; }
+  .tap { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: rgba(11,18,48,.35); border: 0; color: #fff; cursor: pointer; font: inherit; }
+  .tap .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 60px; padding: 0 28px; border-radius: 9999px; background: #416bff; color: #fff; font-size: 18px; font-weight: 700; line-height: 1; box-shadow: 0 12px 36px rgba(65,107,255,.45); }
+  .tap .btn svg { width: 22px; height: 22px; }
+  .tap small { font-size: 13px; color: rgba(255,255,255,.75); }
+  .tap[hidden] { display: none; }
+  h1 { margin: 22px 0 6px; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.3; }
+  h1 em { font-style: normal; color: #a9c2ff; }
+  p { margin: 0; font-size: 15px; line-height: 1.6; color: rgba(255,255,255,.78); word-break: keep-all; }
+  .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .cta a { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 20px; border-radius: 12px; font-size: 15px; font-weight: 700; line-height: 1; text-decoration: none; }
+  .cta .primary { background: #fff; color: #0b1230; }
+  .cta .ghost { background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.22); }
+  footer { margin-top: 26px; font-size: 12px; color: rgba(255,255,255,.4); }
+  @media (min-width: 720px) { h1 { font-size: 28px; } p { font-size: 17px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><b>CLIPO · 클리포</b><span>소개 영상 · 2:39</span></div>
+  <div class="player">
+    <video id="v" playsinline preload="metadata" poster="poster.jpg" controls>
+      <source src="clipo_promo.mp4" type="video/mp4">
+    </video>
+    <button class="tap" id="tap" aria-label="영상 재생">
+      <span class="btn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>소리 켜고 재생</span>
+      <small>2분 39초</small>
+    </button>
+  </div>
+  <h1>수행평가부터 생기부까지,<br><em>선생님을 닮은 AI, 클리포</em></h1>
+  <p>모든 AI 기능을 이용권 없이도 매일 무료로. 첫 6개월은 매일 AI 크레딧 50개, 이후에도 매일 10개.</p>
+  <div class="cta">
+    <a class="primary" href="https://clipo.ai" target="_blank" rel="noopener">clipo.ai에서 바로 시작하기</a>
+  </div>
+  <footer>© Datadriven Inc. · 문의 contact@clipo.ai</footer>
+</div>
+<script>
+  // 모바일은 소리 있는 자동재생이 막혀 있어 한 번의 탭으로 시작한다. 탭 뒤엔 기본 컨트롤로 넘긴다.
+  const v = document.getElementById('v'), tap = document.getElementById('tap');
+  tap.addEventListener('click', () => { v.muted = false; v.play().catch(() => {}); tap.hidden = true; });
+  v.addEventListener('play', () => { tap.hidden = true; });
+  v.addEventListener('ended', () => { v.currentTime = 0; tap.hidden = false; });
+</script>
+</body>
+</html>
