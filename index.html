@@ -404,7 +404,8 @@
     .team-ops    { --accent: #78716C; --accent-bg: #F0EEEA; }
     .bench.personal .bench-code { color: #8D939C; }
     .bench.archive .bench-code { color: #5C3A1E; }
-    .bench.mockups .cards { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); }
+    .bench.mockups .cards,
+    .bench.next-year .cards { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); }
     .card-service {
       font-size: 13px;
       font-weight: 700;
@@ -532,7 +533,8 @@
       .readout dt { font-size: 12px; }
       .toolbar { flex-direction: column; align-items: flex-start; }
       .cards { grid-template-columns: 1fr; gap: 10px; }
-      .bench.mockups .cards { grid-template-columns: 1fr; }
+      .bench.mockups .cards,
+      .bench.next-year .cards { grid-template-columns: 1fr; }
       .main { gap: 40px; }
     }
   </style>
@@ -677,7 +679,7 @@
     <section class="bench mockups">
       <div class="bench-head">
         <span class="bench-code">BENCH D</span>
-        <h2 class="bench-title">서비스 Mock-up</h2>
+        <h2 class="bench-title">2026년 서비스 Mock-up</h2>
         <span class="bench-count"></span>
       </div>
       <p class="bench-desc">두 서비스에서 개선할 화면을 개발 전에 먼저 만들어 봐요.</p>
@@ -715,17 +717,25 @@
       </div>
     </section>
 
-    <!-- BENCH E · 2027년 준비 -->
+    <!-- BENCH E · 2027년 준비 Mock-up -->
     <section class="bench next-year">
       <div class="bench-head">
         <span class="bench-code">BENCH E</span>
-        <h2 class="bench-title">2027년 준비</h2>
+        <h2 class="bench-title">2027년 준비 Mock-up</h2>
         <span class="bench-count"></span>
       </div>
       <p class="bench-desc">내년에 할 것들을 여기에 모아요.</p>
       <div class="cards">
 
-        <p class="bench-empty">아직 올린 실험이 없어요. 준비가 시작되면 여기에 쌓입니다.</p>
+        <div class="card index-card clipo" data-created="2026-09-30" data-updated="">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-folders" aria-hidden="true"></i></div><div><div class="card-service">CLIPO</div><div class="card-name">2027 준비 목업 인덱스</div></div></div>
+          <nav class="sub-list" aria-label="CLIPO 2027 준비 목업">
+            <a class="sub-link" href="https://obkim-lgtm.github.io/clipo-mockup/output/quick_start_v1_260925.html#home" target="_blank" rel="noopener" data-src="clipo_mockup:output/quick_start_v1_260925.html" data-updated="2026-09-26"><span class="sub-icon"><i class="ti ti-home" aria-hidden="true"></i></span><span class="sub-name">홈화면 리뉴얼</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+            <a class="sub-link" href="https://obkim-lgtm.github.io/clipo-mockup/output/eval_design_quick_v1_260925.html#new" target="_blank" rel="noopener" data-src="clipo_mockup:output/eval_design_quick_v1_260925.html" data-updated="2026-09-26"><span class="sub-icon"><i class="ti ti-puzzle" aria-hidden="true"></i></span><span class="sub-name">설계 고도화</span><span class="sub-date"></span><svg class="sub-arrow" fill="none" viewBox="0 0 14 14" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2 7h10M7 2l5 5-5 5"/></svg></a>
+          </nav>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+        </div>
 
       </div>
     </section>
