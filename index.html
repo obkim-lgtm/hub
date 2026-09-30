@@ -206,6 +206,19 @@
     .clipo    { --accent: #416BFF; --accent-bg: #EAEFFF; }
     .personal { --accent: #059669; --accent-bg: #E3F6EE; }
     .archive  { --accent: #6B7280; --accent-bg: #EEEEEA; }
+    .next-year { --accent: #0D9488; --accent-bg: #E2F5F2; }
+    .bench-empty {
+      grid-column: 1 / -1;
+      margin: 0;
+      padding: 22px;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .55);
+      font-size: 14px;
+      color: var(--faint);
+      text-align: center;
+      word-break: keep-all;
+    }
 
     .bench-head {
       display: flex;
@@ -387,7 +400,6 @@
     /* ── Index card (서비스 Mock-up) ── */
     .bench.mockups { --accent: #1C1F24; --accent-bg: #EEEEEA; }
     .bench.mockups .bench-code { color: #416BFF; }
-    .public-site { --accent: #0D9488; --accent-bg: #E2F5F2; }
     .service-ops { --accent: #059669; --accent-bg: #E3F6EE; }
     .team-ops    { --accent: #78716C; --accent-bg: #F0EEEA; }
     .bench.personal .bench-code { color: #8D939C; }
@@ -578,7 +590,7 @@
 
         <a class="card" data-order="1" href="https://internal-tool.pages.ddapp.io/clipo-analytics/pulse.html" target="_blank" rel="noopener" data-src="clipo_analytics:pulse.json" data-created="2026-09-03" data-updated="2026-09-30" data-live="매일 자동 갱신">
         <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-        <div class="card-head"><div class="card-icon"><i class="ti ti-chart-line" aria-hidden="true"></i></div><div class="card-name">CLIPO 주요 지표 대시보드</div></div>
+        <div class="card-head"><div class="card-icon"><i class="ti ti-chart-line" aria-hidden="true"></i></div><div class="card-name">CLIPO 주요 지표</div></div>
         <ul class="card-desc"><li>유입·활성·재방문·매출을 차트로 확인</li></ul>
         <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
@@ -592,14 +604,14 @@
 
         <a class="card" data-order="3" href="https://internal-tool.pages.ddapp.io/clipo-analytics/ai_cost.html" target="_blank" rel="noopener" data-src="clipo_analytics:ai_cost.json" data-created="2026-09-29" data-updated="2026-09-30" data-live="매일 자동 갱신">
         <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-        <div class="card-head"><div class="card-icon"><i class="ti ti-coin" aria-hidden="true"></i></div><div class="card-name">AI 기능 단가 대시보드</div></div>
+        <div class="card-head"><div class="card-icon"><i class="ti ti-coin" aria-hidden="true"></i></div><div class="card-name">AI 기능 단가</div></div>
         <ul class="card-desc"><li>기능별 크레딧당 AI 원가와 모델 교체 전후 변화</li></ul>
         <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
         <a class="card" data-order="4" href="https://internal-tool.pages.ddapp.io/clipo-analytics/hiai_ocr.html" target="_blank" rel="noopener" data-src="clipo_analytics:hiai_ocr.json" data-created="2026-09-30" data-updated="2026-09-30" data-live="매시 자동 갱신">
         <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-        <div class="card-head"><div class="card-icon"><i class="ti ti-message-report" aria-hidden="true"></i></div><div class="card-name">과제물 인식 의견 대시보드</div></div>
+        <div class="card-head"><div class="card-icon"><i class="ti ti-message-report" aria-hidden="true"></i></div><div class="card-name">과제물 인식 의견</div></div>
         <ul class="card-desc"><li>선생님이 알린 글자 인식 오류를 날짜·유형별로 확인</li></ul>
         <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
@@ -703,25 +715,17 @@
       </div>
     </section>
 
-    <!-- BENCH E · 외부 공개 서비스 -->
-    <section class="bench public-site">
+    <!-- BENCH E · 2027년 준비 -->
+    <section class="bench next-year">
       <div class="bench-head">
         <span class="bench-code">BENCH E</span>
-        <h2 class="bench-title">외부 공개 서비스</h2>
+        <h2 class="bench-title">2027년 준비</h2>
         <span class="bench-count"></span>
       </div>
-      <p class="bench-desc">선생님들이 실제로 들어와 보는 공개 페이지예요.</p>
+      <p class="bench-desc">내년에 할 것들을 여기에 모아요.</p>
       <div class="cards">
 
-
-
-
-        <a class="card" href="https://obkim-lgtm.github.io/clipo-blog/guide/" target="_blank" rel="noopener" data-src="clipo_scoring_guide:site" data-created="2026-09-08" data-updated="2026-09-30">
-          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon"><i class="ti ti-flask" aria-hidden="true"></i></div><div class="card-name">AI 채점 가이드</div></div>
-          <ul class="card-desc"><li>AI 채점이 어떻게 동작하는지 과목별 예시로 안내</li></ul>
-          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
-        </a>
+        <p class="bench-empty">아직 올린 실험이 없어요. 준비가 시작되면 여기에 쌓입니다.</p>
 
       </div>
     </section>
@@ -740,6 +744,13 @@
           <p class="bench-desc">실험은 끝났지만 과정을 기록으로 남겨둔 것들이에요.</p>
         </summary>
         <div class="cards">
+
+          <a class="card" href="https://obkim-lgtm.github.io/clipo-blog/guide/" target="_blank" rel="noopener" data-src="clipo_scoring_guide:site" data-created="2026-09-08" data-updated="2026-09-30">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-flask" aria-hidden="true"></i></div><div class="card-name">AI 채점 가이드</div></div>
+          <ul class="card-desc"><li>AI 채점이 어떻게 동작하는지 과목별 예시로 안내</li></ul>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+          </a>
 
           <a class="card" href="https://training.clipo.ai/" target="_blank" rel="noopener" data-src="clipo_training:output/training_v2_260410.html" data-created="2026-04-10" data-updated="2026-08-05">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
@@ -1014,7 +1025,7 @@
     document.querySelectorAll('.bench').forEach(function (b) {
       var n = b.querySelectorAll('.card').length;
       var el = b.querySelector('.bench-count');
-      if (el) el.textContent = String(n).padStart(2, '0') + ' EXP';
+      if (el) el.textContent = n ? String(n).padStart(2, '0') + ' EXP' : '준비 중';
     });
   }
 
