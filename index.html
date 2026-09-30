@@ -206,7 +206,6 @@
     .clipo    { --accent: #416BFF; --accent-bg: #EAEFFF; }
     .personal { --accent: #059669; --accent-bg: #E3F6EE; }
     .archive  { --accent: #6B7280; --accent-bg: #EEEEEA; }
-    .next-year { --accent: #0D9488; --accent-bg: #E2F5F2; }
     .bench-empty {
       grid-column: 1 / -1;
       margin: 0;
@@ -404,8 +403,7 @@
     .team-ops    { --accent: #78716C; --accent-bg: #F0EEEA; }
     .bench.personal .bench-code { color: #8D939C; }
     .bench.archive .bench-code { color: #5C3A1E; }
-    .bench.mockups .cards,
-    .bench.next-year .cards { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); }
+    .bench.mockups .cards { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
     .card-service {
       font-size: 13px;
       font-weight: 700;
@@ -533,8 +531,7 @@
       .readout dt { font-size: 12px; }
       .toolbar { flex-direction: column; align-items: flex-start; }
       .cards { grid-template-columns: 1fr; gap: 10px; }
-      .bench.mockups .cards,
-      .bench.next-year .cards { grid-template-columns: 1fr; }
+      .bench.mockups .cards { grid-template-columns: 1fr; }
       .main { gap: 40px; }
     }
   </style>
@@ -679,13 +676,13 @@
     <section class="bench mockups">
       <div class="bench-head">
         <span class="bench-code">BENCH D</span>
-        <h2 class="bench-title">2026년 서비스 Mock-up</h2>
+        <h2 class="bench-title">서비스 Mock-up</h2>
         <span class="bench-count"></span>
       </div>
-      <p class="bench-desc">두 서비스에서 개선할 화면을 개발 전에 먼저 만들어 봐요.</p>
+      <p class="bench-desc">2026년 과업과 2027년 준비 화면을 개발 전에 먼저 만들어 봐요.</p>
       <div class="cards">
 
-        <div class="card index-card hiai" data-src="hiai_mockup:output/index.html" data-created="2026-07-15" data-updated="2026-09-09">
+        <div class="card index-card hiai" data-order="1" data-src="hiai_mockup:output/index.html" data-created="2026-07-15" data-updated="2026-09-09">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
           <div class="card-head"><div class="card-icon"><i class="ti ti-folders" aria-hidden="true"></i></div><div><div class="card-service">경기도교육청 AI 서·논술형 평가지원시스템</div><div class="card-name">2026 과업 목업 인덱스</div></div></div>
           <nav class="sub-list" aria-label="경기도교육청 AI 서·논술형 평가지원시스템 목업">
@@ -699,7 +696,7 @@
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </div>
 
-        <div class="card index-card clipo" data-created="2026-05-08" data-updated="2026-09-14">
+        <div class="card index-card clipo" data-order="2" data-created="2026-05-08" data-updated="2026-09-14">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
           <div class="card-head"><div class="card-icon"><i class="ti ti-folders" aria-hidden="true"></i></div><div><div class="card-service">CLIPO</div><div class="card-name">2026 과업 목업 인덱스</div></div></div>
           <nav class="sub-list" aria-label="CLIPO 목업">
@@ -714,20 +711,8 @@
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </div>
 
-      </div>
-    </section>
 
-    <!-- BENCH E · 2027년 준비 Mock-up -->
-    <section class="bench next-year">
-      <div class="bench-head">
-        <span class="bench-code">BENCH E</span>
-        <h2 class="bench-title">2027년 준비 Mock-up</h2>
-        <span class="bench-count"></span>
-      </div>
-      <p class="bench-desc">내년에 할 것들을 여기에 모아요.</p>
-      <div class="cards">
-
-        <div class="card index-card clipo" data-created="2026-09-30" data-updated="">
+        <div class="card index-card clipo" data-order="3" data-created="2026-09-30" data-updated="">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
           <div class="card-head"><div class="card-icon"><i class="ti ti-folders" aria-hidden="true"></i></div><div><div class="card-service">CLIPO</div><div class="card-name">2027 준비 목업 인덱스</div></div></div>
           <nav class="sub-list" aria-label="CLIPO 2027 준비 목업">
@@ -736,7 +721,6 @@
           </nav>
           <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </div>
-
       </div>
     </section>
 
