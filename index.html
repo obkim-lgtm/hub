@@ -388,6 +388,8 @@
     .bench.mockups { --accent: #1C1F24; --accent-bg: #EEEEEA; }
     .bench.mockups .bench-code { color: #416BFF; }
     .public-site { --accent: #0D9488; --accent-bg: #E2F5F2; }
+    .service-ops { --accent: #059669; --accent-bg: #E3F6EE; }
+    .team-ops    { --accent: #78716C; --accent-bg: #F0EEEA; }
     .bench.personal .bench-code { color: #8D939C; }
     .bench.archive .bench-code { color: #5C3A1E; }
     .bench.mockups .cards { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); }
@@ -564,74 +566,105 @@
 
   <main class="main">
 
-    <!-- BENCH A · 사내 도구 (Internal App) -->
+    <!-- BENCH A · 서비스 모니터링 -->
     <section class="bench internal">
       <div class="bench-head">
         <span class="bench-code">BENCH A</span>
-        <h2 class="bench-title">사내 도구</h2>
+        <h2 class="bench-title">서비스 모니터링</h2>
         <span class="bench-count"></span>
       </div>
-      <p class="bench-desc">팀이 실제로 매일 쓰는 대시보드와 캘린더예요. 회사 네트워크에서만 열려요.</p>
+      <p class="bench-desc">서비스가 어떻게 쓰이고 있는지 매일 보는 대시보드예요. 회사 네트워크에서만 열려요.</p>
       <div class="cards">
 
-        <a class="card" data-order="2" href="http://192.168.50.76:8081/" target="_blank" rel="noopener" data-src="clipo_traffic_analysis:data/training_roi_260910" data-created="2026-09-10" data-updated="2026-09-30">
-          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon"><i class="ti ti-presentation" aria-hidden="true"></i></div><div class="card-name">CLIPO 연수 강사 현황</div></div>
-          <ul class="card-desc"><li>연수가 가입·사용·매출로 이어졌는지 강사별 확인</li></ul>
-          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
-        </a>
-
         <a class="card" data-order="1" href="https://internal-tool.pages.ddapp.io/clipo-analytics/pulse.html" target="_blank" rel="noopener" data-src="clipo_analytics:pulse.json" data-created="2026-09-03" data-updated="2026-09-30" data-live="매일 자동 갱신">
-          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon"><i class="ti ti-chart-line" aria-hidden="true"></i></div><div class="card-name">CLIPO 주요 지표 대시보드</div></div>
-          <ul class="card-desc"><li>유입·활성·재방문·매출을 차트로 확인</li></ul>
-          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+        <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+        <div class="card-head"><div class="card-icon"><i class="ti ti-chart-line" aria-hidden="true"></i></div><div class="card-name">CLIPO 주요 지표 대시보드</div></div>
+        <ul class="card-desc"><li>유입·활성·재방문·매출을 차트로 확인</li></ul>
+        <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" data-order="7" href="https://internal-tool.pages.ddapp.io/clipo-analytics/ai_cost.html" target="_blank" rel="noopener" data-src="clipo_analytics:ai_cost.json" data-created="2026-09-29" data-updated="2026-09-30" data-live="매일 자동 갱신">
-          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon"><i class="ti ti-coin" aria-hidden="true"></i></div><div class="card-name">AI 기능 단가 대시보드</div></div>
-          <ul class="card-desc"><li>기능별 크레딧당 AI 원가와 모델 교체 전후 변화</li></ul>
-          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+        <a class="card" data-order="2" href="https://internal-tool.pages.ddapp.io/clipo-analytics/usage.html" target="_blank" rel="noopener" data-src="clipo_analytics:usage.html" data-created="2026-08-02" data-updated="2026-09-02">
+        <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+        <div class="card-head"><div class="card-icon"><i class="ti ti-report-analytics" aria-hidden="true"></i></div><div class="card-name">CLIPO 이용 분석 리포트</div></div>
+        <ul class="card-desc"><li>첫 방문부터 유료 갱신까지 선생님 이용 여정</li></ul>
+        <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-        <a class="card" data-order="8" href="https://internal-tool.pages.ddapp.io/clipo-analytics/hiai_ocr.html" target="_blank" rel="noopener" data-src="clipo_analytics:hiai_ocr.json" data-created="2026-09-30" data-updated="2026-09-30" data-live="매시 자동 갱신">
-          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon"><i class="ti ti-message-report" aria-hidden="true"></i></div><div class="card-name">과제물 인식 의견 대시보드</div></div>
-          <ul class="card-desc"><li>선생님이 알린 글자 인식 오류를 날짜·유형별로 확인</li></ul>
-          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+        <a class="card" data-order="3" href="https://internal-tool.pages.ddapp.io/clipo-analytics/ai_cost.html" target="_blank" rel="noopener" data-src="clipo_analytics:ai_cost.json" data-created="2026-09-29" data-updated="2026-09-30" data-live="매일 자동 갱신">
+        <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+        <div class="card-head"><div class="card-icon"><i class="ti ti-coin" aria-hidden="true"></i></div><div class="card-name">AI 기능 단가 대시보드</div></div>
+        <ul class="card-desc"><li>기능별 크레딧당 AI 원가와 모델 교체 전후 변화</li></ul>
+        <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
 
-
-        <a class="card" data-order="3" href="https://internal-tool.pages.ddapp.io/clipo-analytics/usage.html" target="_blank" rel="noopener" data-src="clipo_analytics:usage.html" data-created="2026-08-02" data-updated="2026-09-02">
-          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon"><i class="ti ti-report-analytics" aria-hidden="true"></i></div><div class="card-name">CLIPO 이용 분석 리포트</div></div>
-          <ul class="card-desc"><li>첫 방문부터 유료 갱신까지 선생님 이용 여정</li></ul>
-          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+        <a class="card" data-order="4" href="https://internal-tool.pages.ddapp.io/clipo-analytics/hiai_ocr.html" target="_blank" rel="noopener" data-src="clipo_analytics:hiai_ocr.json" data-created="2026-09-30" data-updated="2026-09-30" data-live="매시 자동 갱신">
+        <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+        <div class="card-head"><div class="card-icon"><i class="ti ti-message-report" aria-hidden="true"></i></div><div class="card-name">과제물 인식 의견 대시보드</div></div>
+        <ul class="card-desc"><li>선생님이 알린 글자 인식 오류를 날짜·유형별로 확인</li></ul>
+        <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
         </a>
-
-        <a class="card" data-order="5" href="https://internal-tool.pages.ddapp.io/DD_Attendance/public.html" target="_blank" rel="noopener" data-src="dd_attendance:." data-created="2026-04-23" data-updated="2026-09-30" data-live="매일 자동 갱신">
-          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon"><i class="ti ti-calendar-user" aria-hidden="true"></i></div><div class="card-name">근태 캘린더</div></div>
-          <ul class="card-desc"><li>연차·재택·외근을 월 캘린더 한 장으로</li></ul>
-          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
-        </a>
-
-        <a class="card" data-order="6" href="http://192.168.50.76:8080/" target="_blank" rel="noopener" data-src="team-schedule-server:src" data-created="2026-07-06" data-updated="2026-09-30" data-live="상시 편집">
-          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon"><i class="ti ti-calendar-event" aria-hidden="true"></i></div><div class="card-name">팀 캘린더</div></div>
-          <ul class="card-desc"><li>배포·운영·기획·디자인 일정을 한 화면에</li></ul>
-          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
-        </a>
-
 
       </div>
     </section>
 
-    <!-- BENCH B · 서비스 Mock-up (HIAI · CLIPO 인덱스 카드 2장) -->
-    <section class="bench mockups">
+    <!-- BENCH B · 서비스 운영 -->
+    <section class="bench service-ops">
       <div class="bench-head">
         <span class="bench-code">BENCH B</span>
+        <h2 class="bench-title">서비스 운영</h2>
+        <span class="bench-count"></span>
+      </div>
+      <p class="bench-desc">선생님을 만나는 채널과 연수 현황을 관리해요.</p>
+      <div class="cards">
+
+        <a class="card" data-order="1" href="https://obkim-lgtm.github.io/clipo-blog/" target="_blank" rel="noopener" data-src="clipo_blog:site" data-created="2026-09-22" data-updated="2026-09-30">
+        <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+        <div class="card-head"><div class="card-icon"><i class="ti ti-news" aria-hidden="true"></i></div><div class="card-name">CLIPO 블로그</div></div>
+        <ul class="card-desc"><li>사용법 영상 · AI 채점 가이드 · 연수 · 업데이트 소식을 한곳에</li></ul>
+        <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+        </a>
+
+        <a class="card" data-order="2" href="http://192.168.50.76:8081/" target="_blank" rel="noopener" data-src="clipo_traffic_analysis:data/training_roi_260910" data-created="2026-09-10" data-updated="2026-09-30">
+        <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+        <div class="card-head"><div class="card-icon"><i class="ti ti-presentation" aria-hidden="true"></i></div><div class="card-name">CLIPO 연수 강사 현황</div></div>
+        <ul class="card-desc"><li>연수가 가입·사용·매출로 이어졌는지 강사별 확인</li></ul>
+        <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- BENCH C · 팀 운영 -->
+    <section class="bench team-ops">
+      <div class="bench-head">
+        <span class="bench-code">BENCH C</span>
+        <h2 class="bench-title">팀 운영</h2>
+        <span class="bench-count"></span>
+      </div>
+      <p class="bench-desc">팀 일정과 근태를 한 화면에서 봐요. 회사 네트워크에서만 열려요.</p>
+      <div class="cards">
+
+        <a class="card" data-order="1" href="https://internal-tool.pages.ddapp.io/DD_Attendance/public.html" target="_blank" rel="noopener" data-src="dd_attendance:." data-created="2026-04-23" data-updated="2026-09-30" data-live="매일 자동 갱신">
+        <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+        <div class="card-head"><div class="card-icon"><i class="ti ti-calendar-user" aria-hidden="true"></i></div><div class="card-name">근태 캘린더</div></div>
+        <ul class="card-desc"><li>연차·재택·외근을 월 캘린더 한 장으로</li></ul>
+        <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+        </a>
+
+        <a class="card" data-order="2" href="http://192.168.50.76:8080/" target="_blank" rel="noopener" data-src="team-schedule-server:src" data-created="2026-07-06" data-updated="2026-09-30" data-live="상시 편집">
+        <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+        <div class="card-head"><div class="card-icon"><i class="ti ti-calendar-event" aria-hidden="true"></i></div><div class="card-name">팀 캘린더</div></div>
+        <ul class="card-desc"><li>배포·운영·기획·디자인 일정을 한 화면에</li></ul>
+        <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- BENCH D · 서비스 Mock-up (HIAI · CLIPO 인덱스 카드 2장) -->
+    <section class="bench mockups">
+      <div class="bench-head">
+        <span class="bench-code">BENCH D</span>
         <h2 class="bench-title">서비스 Mock-up</h2>
         <span class="bench-count"></span>
       </div>
@@ -670,36 +703,18 @@
       </div>
     </section>
 
-    <!-- BENCH C · 외부 공개 서비스 -->
+    <!-- BENCH E · 외부 공개 서비스 -->
     <section class="bench public-site">
       <div class="bench-head">
-        <span class="bench-code">BENCH C</span>
+        <span class="bench-code">BENCH E</span>
         <h2 class="bench-title">외부 공개 서비스</h2>
         <span class="bench-count"></span>
       </div>
       <p class="bench-desc">선생님들이 실제로 들어와 보는 공개 페이지예요.</p>
       <div class="cards">
 
-        <a class="card" href="https://training.clipo.ai/" target="_blank" rel="noopener" data-src="clipo_training:output/training_v2_260410.html" data-created="2026-04-10" data-updated="2026-08-05">
-          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon"><i class="ti ti-school" aria-hidden="true"></i></div><div class="card-name">CLIPO 교사 연수</div></div>
-          <ul class="card-desc"><li>AI 활용 수업·평가·생활기록부 무료 연수 안내·신청</li></ul>
-          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
-        </a>
 
-        <a class="card" href="https://obkim-lgtm.github.io/clipo-blog/" target="_blank" rel="noopener" data-src="clipo_blog:site" data-created="2026-09-22" data-updated="2026-09-30">
-          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon"><i class="ti ti-news" aria-hidden="true"></i></div><div class="card-name">CLIPO 블로그</div></div>
-          <ul class="card-desc"><li>사용법 영상 · AI 채점 가이드 · 연수 · 업데이트 소식을 한곳에</li></ul>
-          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
-        </a>
 
-        <a class="card" href="https://training.clipo.ai/video/" target="_blank" rel="noopener" data-src="../CLIPO/CLIPO 홍보물/영상 소스/clipo_promo_video:src/src" data-created="2026-09-14" data-updated="2026-09-30">
-          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon"><i class="ti ti-player-play" aria-hidden="true"></i></div><div class="card-name">CLIPO 소개 영상</div></div>
-          <ul class="card-desc"><li>수행평가 설계 → AI 채점 → 생활기록부 기록, 2분 40초 · 브로슈어 QR 연결</li></ul>
-          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
-        </a>
 
         <a class="card" href="https://obkim-lgtm.github.io/clipo-blog/guide/" target="_blank" rel="noopener" data-src="clipo_scoring_guide:site" data-created="2026-09-08" data-updated="2026-09-30">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
@@ -725,6 +740,20 @@
           <p class="bench-desc">실험은 끝났지만 과정을 기록으로 남겨둔 것들이에요.</p>
         </summary>
         <div class="cards">
+
+          <a class="card" href="https://training.clipo.ai/" target="_blank" rel="noopener" data-src="clipo_training:output/training_v2_260410.html" data-created="2026-04-10" data-updated="2026-08-05">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-school" aria-hidden="true"></i></div><div class="card-name">CLIPO 교사 연수</div></div>
+          <ul class="card-desc"><li>AI 활용 수업·평가·생활기록부 무료 연수 안내·신청</li></ul>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+          </a>
+
+          <a class="card" href="https://training.clipo.ai/video/" target="_blank" rel="noopener" data-src="../CLIPO/CLIPO 홍보물/영상 소스/clipo_promo_video:src/src" data-created="2026-09-14" data-updated="2026-09-30">
+          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+          <div class="card-head"><div class="card-icon"><i class="ti ti-player-play" aria-hidden="true"></i></div><div class="card-name">CLIPO 소개 영상</div></div>
+          <ul class="card-desc"><li>수행평가 설계 → AI 채점 → 생활기록부 기록, 2분 40초 · 브로슈어 QR 연결</li></ul>
+          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+          </a>
 
           <a class="card" href="https://obkim-lgtm.github.io/clipo-contest/" target="_blank" rel="noopener" data-src="clipo_contest:." data-created="2026-07-20" data-updated="2026-08-24">
             <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
