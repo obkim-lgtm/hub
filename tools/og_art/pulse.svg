@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="420" viewBox="0 0 64 64"><circle cx="50" cy="15" r="8" fill="#FFD27A"/>
+  <g stroke="#F2A65A" stroke-width="2.4" stroke-linecap="round"><line x1="50" y1="2" x2="50" y2="4.5"/><line x1="61" y1="15" x2="63.5" y2="15"/><line x1="58" y1="6.5" x2="59.8" y2="4.7"/></g>
+  <g transform="rotate(-6 30 38)"><rect x="8" y="16" width="44" height="40" rx="4" fill="#fff" stroke="#EAD9BD" stroke-width="2"/><line x1="14" y1="47" x2="46" y2="47" stroke="#F0E2CC" stroke-width="1.6"/>
+  <polyline points="14,43 22,36 29,39 37,29 46,24" fill="none" stroke="#2a78d6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="46" cy="24" r="3" fill="#2a78d6"/></g>
+  <rect x="20" y="10" width="20" height="8" rx="1.5" fill="#F2A65A" opacity=".75" transform="rotate(-10 30 14)"/></svg>

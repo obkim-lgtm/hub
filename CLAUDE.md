@@ -101,6 +101,24 @@ GitHub Pages가 push 후 자동 배포. 약 30초 후 https://obkim-lgtm.github.
 
 - **업무 밖 실험(SIDE) 벤치는 2026-09-14 제거**(올립 — 지금 개인 프로젝트가 없음). 개인 프로젝트가 다시 생기면 그때 벤치를 되살린다.
 
+## 카드 대상 페이지의 og 태그·대표 이미지 (2026-09-30)
+
+올립이 "허브에 넣어줘"·"og 만들어줘"라고 하면 **카드만 추가하지 말고, 카드가 가리키는 페이지에도 og 태그 + 대표 이미지를 넣는다**(이미 있으면 건너뜀). 허브 자체의 `og.png`는 `make_og.py` 담당이고, 이건 각 페이지용.
+
+```bash
+py -3 _hub/tools/make_page_og.py --theme <sky|note|cream|pink|clipo|hiai> --eyebrow "머리말" \
+  --title "제목<br>둘째 줄" --desc "설명<br>둘째 줄" --art _hub/tools/og_art/<그림>.svg \
+  --out <페이지 폴더>/og.png --url <페이지 주소> --img-url <og.png가 배포될 절대 주소>
+```
+
+- 출력 = 1200×630 PNG + 표준출력의 태그 묶음(description·og:*·twitter:*) → 그 페이지 `<title>` 바로 아래에 붙인다. 기존 `<meta name="description">`은 묶음 것으로 대체
+- **이미지는 그 페이지와 같은 곳에 둔다**(같은 저장소·서버). 공개 허브 저장소에 사내 페이지 이미지를 올리지 않는다
+- **테마 = 그 페이지 화면 톤**. 문구는 카드 `card-desc`와 맞춘다. 이미지에 사내 숫자·사람 이름을 넣지 않는다
+- 그림: `og_art/`의 기존 SVG(attendance·team·pulse·training)를 재사용하거나, 그 페이지 헤더 그림을 400px 정사각으로 옮겨 새로 저장
+- 적용한 페이지: 근태 캘린더(`sky`)·팀 캘린더(`note`)·주요 지표(`cream`)·연수 강사 현황(`pink`)
+- ⚠️ **사내망 페이지(`internal-tool.pages.ddapp.io`·`192.168.50.76`)는 태그를 넣어도 슬랙·카톡 미리보기 카드가 거의 안 뜬다** — 미리보기 서버가 CF Access·LAN을 못 넘는다. 넣기 전에 한 줄로 알리고, 슬랙 공유 때는 PNG를 첨부하라고 안내. 외부 공개 페이지는 정상 동작
+- dd-mac 자체 서버(팀 캘린더 등)는 `server.js`의 `MIME`에 `.png`가 있어야 이미지가 나간다
+
 ## 카드 수정/삭제
 
 - 프로젝트가 사라지면 카드 삭제, 끝난 실험은 보관함(`.archive`)으로 이동
