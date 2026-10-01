@@ -1,0 +1,13 @@
+    <svg xmlns="http://www.w3.org/2000/svg" width="420" height="420" viewBox="0 0 64 64">
+      <g transform="rotate(-5 30 36)">
+        <rect x="8" y="12" width="44" height="44" rx="5" fill="#fff" stroke="#D5DEEA" stroke-width="2"/>
+        <rect x="8" y="12" width="44" height="11" rx="5" fill="#5B8DEF" opacity=".9"/>
+        <rect x="8" y="18" width="44" height="5" fill="#5B8DEF" opacity=".9"/>
+        <g fill="#E3EAF4"><rect x="14" y="29" width="7" height="6" rx="1.2"/><rect x="26" y="29" width="7" height="6" rx="1.2"/><rect x="38" y="29" width="7" height="6" rx="1.2"/>
+        <rect x="14" y="40" width="7" height="6" rx="1.2"/><rect x="26" y="40" width="7" height="6" rx="1.2"/></g>
+        <line x1="20" y1="8" x2="20" y2="16" stroke="#94A3B8" stroke-width="2.6" stroke-linecap="round"/>
+        <line x1="40" y1="8" x2="40" y2="16" stroke="#94A3B8" stroke-width="2.6" stroke-linecap="round"/>
+      </g>
+      <g transform="rotate(-14 46 44)"><circle cx="46" cy="44" r="12" fill="#EEF4FF" stroke="#2a78d6" stroke-width="2.4"/>
+        <polyline points="40,44 44.5,48.5 52,39.5" fill="none" stroke="#2a78d6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
+    </svg>
