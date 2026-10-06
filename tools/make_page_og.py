@@ -32,6 +32,8 @@ THEMES = {
               "background:#fff;color:#2F55E0;border:3px solid #C7D5FF", "#1B2F66", "#4A5E8C"),   # CLIPO 공개 페이지
     'hiai':  ("background:linear-gradient(180deg,#E8F0FA 0%,#FFFFFF 100%)",
               "background:#fff;color:#0950A0;border:3px solid #BCD3EE", "#0B2E57", "#46607F"),   # HIAI 톤
+    'olive': ("background:linear-gradient(180deg,#E3EBCF 0%,#EFF3E2 55%,#F7F9F1 100%)",
+              "background:#fff;color:#4A6324;border:3px solid #C9D6AE", "#2B3520", "#5C6A48"),   # 데이터 분석 에이전트(올립 톤)
 }
 
 PAGE = """<!doctype html><html><head><meta charset="utf-8">

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="올리브 나무">
+  <ellipse cx="200" cy="356" rx="138" ry="16" fill="#DCE5C6"/>
+  <path d="M206 354 C210 332 204 318 212 300" stroke="#C9D6AE" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- 줄기 -->
+  <path d="M176 356 C186 326 172 304 190 276 C202 256 194 240 204 216 L218 218 C212 242 224 258 214 282 C202 308 214 330 226 356 Z" fill="#7A5C3E"/>
+  <path d="M196 300 C204 288 200 276 208 262" stroke="#94734F" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <g stroke="#7A5C3E" stroke-width="9" fill="none" stroke-linecap="round">
+    <path d="M204 238 C184 224 162 214 140 208"/>
+    <path d="M212 228 C230 212 254 204 278 202"/>
+    <path d="M208 216 C206 196 212 176 218 156"/>
+  </g>
+  <!-- 잎 덩어리 -->
+  <g fill="#6E8B3D">
+    <circle cx="136" cy="200" r="48"/><circle cx="268" cy="190" r="52"/><circle cx="204" cy="162" r="66"/>
+    <circle cx="176" cy="214" r="44"/><circle cx="236" cy="220" r="42"/>
+  </g>
+  <g fill="#8BA35A">
+    <circle cx="130" cy="190" r="40"/><circle cx="262" cy="180" r="44"/><circle cx="200" cy="150" r="58"/>
+    <circle cx="172" cy="202" r="36"/><circle cx="232" cy="206" r="34"/>
+  </g>
+  <g fill="#A9BE7C">
+    <circle cx="118" cy="176" r="18"/><circle cx="184" cy="122" r="26"/><circle cx="250" cy="160" r="20"/><circle cx="222" cy="128" r="14"/>
+  </g>
+  <!-- 잎 -->
+  <g fill="#5E7A2E">
+    <ellipse cx="92" cy="206" rx="15" ry="5" transform="rotate(-24 92 206)"/>
+    <ellipse cx="316" cy="196" rx="15" ry="5" transform="rotate(22 316 196)"/>
+    <ellipse cx="150" cy="104" rx="14" ry="5" transform="rotate(-40 150 104)"/>
+    <ellipse cx="258" cy="104" rx="14" ry="5" transform="rotate(36 258 104)"/>
+    <ellipse cx="204" cy="88" rx="13" ry="5" transform="rotate(-80 204 88)"/>
+    <ellipse cx="120" cy="244" rx="13" ry="5" transform="rotate(18 120 244)"/>
+    <ellipse cx="288" cy="236" rx="13" ry="5" transform="rotate(-20 288 236)"/>
+  </g>
+  <!-- 열매 -->
+  <g>
+    <ellipse cx="150" cy="226" rx="7" ry="9" fill="#4B3B5C"/>
+    <ellipse cx="164" cy="232" rx="6" ry="8" fill="#3F5320"/>
+    <ellipse cx="246" cy="236" rx="7" ry="9" fill="#4B3B5C"/>
+    <ellipse cx="282" cy="214" rx="6" ry="8" fill="#3F5320"/>
+    <ellipse cx="214" cy="190" rx="7" ry="9" fill="#4B3B5C"/>
+    <ellipse cx="118" cy="214" rx="6" ry="8" fill="#4B3B5C"/>
+    <ellipse cx="236" cy="150" rx="6" ry="8" fill="#3F5320"/>
+  </g>
+  <g fill="#FFFFFF" opacity=".55">
+    <ellipse cx="148" cy="223" rx="2" ry="3"/><ellipse cx="244" cy="233" rx="2" ry="3"/><ellipse cx="212" cy="187" rx="2" ry="3"/><ellipse cx="116" cy="211" rx="2" ry="3"/>
+  </g>
+</svg>
