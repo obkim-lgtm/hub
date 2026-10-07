@@ -116,7 +116,7 @@ py -3 _hub/tools/make_page_og.py --theme <sky|note|cream|pink|clipo|hiai> --eyeb
 - **이미지는 그 페이지와 같은 곳에 둔다**(같은 저장소·서버). 공개 허브 저장소에 사내 페이지 이미지를 올리지 않는다
 - **테마 = 그 페이지 화면 톤**. 문구는 카드 `card-desc`와 맞춘다. 이미지에 사내 숫자·사람 이름을 넣지 않는다
 - 그림: `og_art/`의 기존 SVG(attendance·team·pulse·training)를 재사용하거나, 그 페이지 헤더 그림을 400px 정사각으로 옮겨 새로 저장
-- 적용한 페이지: 근태 캘린더(`sky`)·팀 캘린더(`note`)·주요 지표(`cream`)·연수 강사 현황(`pink`)·데이터 분석 에이전트 안내서(`sky`, `clipo_data_kit/og.png`)
+- 적용한 페이지: 근태 캘린더(`sky`)·팀 캘린더(`note`)·주요 지표(`cream`)·연수 강사 현황(`pink`)·데이터 분석 에이전트 안내서(`sky`, `kits/clipo_data_kit/og.png`)
 - ⚠️ **사내망 페이지(`internal-tool.pages.ddapp.io`·`192.168.50.76`)는 태그를 넣어도 슬랙·카톡 미리보기 카드가 거의 안 뜬다** — 미리보기 서버가 CF Access·LAN을 못 넘는다. 넣기 전에 한 줄로 알리고, 슬랙 공유 때는 PNG를 첨부하라고 안내. 외부 공개 페이지는 정상 동작
 - dd-mac 자체 서버(팀 캘린더 등)는 `server.js`의 `MIME`에 `.png`가 있어야 이미지가 나간다
 
