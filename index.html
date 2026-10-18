@@ -404,6 +404,8 @@
     .bench.personal .bench-code { color: #8D939C; }
     .bench.archive .bench-code { color: #5C3A1E; }
     .bench.mockups .cards { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+    .card-stack { display: flex; flex-direction: column; gap: 14px; }
+    .card-stack > .card { flex: 1; }
     .card-service {
       font-size: 13px;
       font-weight: 700;
@@ -704,19 +706,21 @@
       <p class="bench-desc">2026년 과업과 2027년 준비 화면을 개발 전에 먼저 만들어 봐요.</p>
       <div class="cards">
 
-        <a class="card hiai" data-order="1" href="https://internal-tool.pages.ddapp.io/hiai-mockup/output/index.html" target="_blank" rel="noopener" data-src="hiai_mockup:output/index.html" data-created="2026-07-15" data-updated="2026-09-30">
-          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon"><i class="ti ti-folders" aria-hidden="true"></i></div><div><div class="card-service">경기도교육청 AI 서·논술형 평가지원시스템</div><div class="card-name">2026 과업 목업</div></div></div>
-          <ul class="card-desc"><li>평가 홈 · 과제물 인식 · 설계 · AI 채점 · 리포트 개선 화면</li></ul>
-          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
-        </a>
-
-        <a class="card hiai" data-order="2" href="https://internal-tool.pages.ddapp.io/hiai-mockup/output/ia_2027_sitemap_v1.html" target="_blank" rel="noopener" data-src="hiai_mockup:output/ia_2027_sitemap_v1.html" data-created="2026-10-16" data-updated="2026-10-18">
-          <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
-          <div class="card-head"><div class="card-icon"><i class="ti ti-sitemap" aria-hidden="true"></i></div><div><div class="card-service">경기도교육청 AI 서·논술형 평가지원시스템</div><div class="card-name">2027 준비 목업</div></div></div>
-          <ul class="card-desc"><li>메뉴 구조도에서 화면을 눌러 바로 열어 봐요</li></ul>
-          <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
-        </a>
+        <!-- HIAI 두 장은 한 칸에 위아래로(2027 위) -->
+        <div class="card-stack" data-order="1">
+          <a class="card hiai" data-order="2" href="https://internal-tool.pages.ddapp.io/hiai-mockup/output/ia_2027_sitemap_v1.html" target="_blank" rel="noopener" data-src="hiai_mockup:output/ia_2027_sitemap_v1.html" data-created="2026-10-16" data-updated="2026-10-18">
+            <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+            <div class="card-head"><div class="card-icon"><i class="ti ti-sitemap" aria-hidden="true"></i></div><div><div class="card-service">경기도교육청 AI 서·논술형 평가지원시스템</div><div class="card-name">2027 준비 목업</div></div></div>
+            <ul class="card-desc"><li>메뉴 구조도에서 화면을 눌러 바로 열어 봐요</li></ul>
+            <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+          </a>
+          <a class="card hiai" data-order="1" href="https://internal-tool.pages.ddapp.io/hiai-mockup/output/index.html" target="_blank" rel="noopener" data-src="hiai_mockup:output/index.html" data-created="2026-07-15" data-updated="2026-09-30">
+            <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
+            <div class="card-head"><div class="card-icon"><i class="ti ti-folders" aria-hidden="true"></i></div><div><div class="card-service">경기도교육청 AI 서·논술형 평가지원시스템</div><div class="card-name">2026 과업 목업</div></div></div>
+            <ul class="card-desc"><li>평가 홈 · 과제물 인식 · 설계 · AI 채점 · 리포트 개선 화면</li></ul>
+            <div class="card-meta"><span class="updated"></span><span class="access"></span></div>
+          </a>
+        </div>
 
         <div class="card index-card clipo" data-order="3" data-created="2026-05-08" data-updated="2026-09-14">
           <div class="card-top"><span class="exp-no"></span><span class="status"></span></div>
