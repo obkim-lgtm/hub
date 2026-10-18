@@ -960,7 +960,9 @@
     return ['dormant', '휴면 중'];
   }
   function accessOf(card) {
-    var h = card.getAttribute('href') || '';
+    /* 인덱스 카드(div)는 href가 없으니 안의 첫 링크로 판단 */
+    var inner = card.querySelector('a[href]');
+    var h = card.getAttribute('href') || (inner && inner.getAttribute('href')) || '';
     if (card.hasAttribute('data-local') || /localhost|127\.0\.0\.1/.test(h)) return 'local';
     if (/ddapp\.io|192\.168\./.test(h)) return 'internal';
     return 'public';
