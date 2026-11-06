@@ -39,7 +39,7 @@
 | BENCH A | 서비스 모니터링 | `.internal` | `#EA580C` | 지표·이용·비용·의견 대시보드 (사내망) |
 | BENCH B | 서비스 운영 | `.service-ops` | `#059669` | 선생님을 만나는 채널·연수 운영·팀이 함께 쓰는 운영 도구 (블로그·연수 강사 현황·올립의 물음표. 데이터 분석 에이전트 카드는 2026-10-12 공구함 안으로 옮겨 제거) |
 | BENCH C | 팀 운영 | `.team-ops` | `#78716C` | 근태·팀 캘린더·올립의 공구함(키트 안내서, 2026-10-12) (사내망) |
-| BENCH D | 서비스 Mock-up | `.mockups` | 카드별 `.hiai`/`.clipo` | HIAI는 한 칸에 위아래로 쌓은 카드 2장(`.card-stack`, 2027 위) — 카드 제목을 누르면 2027=home_2027_v5.html(로그인 홈), 2026=output/index.html. 아래 바로 가기 줄은 2027=사이트맵(ia_2027_sitemap_v1)·백오피스, 2026=채점 근거 하이라이팅만. CLIPO만 하위 줄 있는 인덱스 카드 — 2026(3)·2027 준비(4) (2026-10-18 올립). 새 목업은 카드가 아니라 해당 카드 안 `.sub-link` 줄로 추가. 3단으로 보이게 `minmax(320px, 1fr)` |
+| BENCH D | 서비스 Mock-up | `.mockups` | 카드별 `.hiai`/`.clipo` | **대표 링크 일반 카드 4장**(2026-11-06 간소화): CLIPO 2027 사이트맵 · GGD 2027 사이트맵 1월 타깃 · GGD 2027 사이트맵 RAS 포함 · GGD 채점 근거 하이라이팅. 카드를 누르면 바로 이동. 2026 CLIPO 목업은 끝나서 뺐다 |
 | STORAGE | 보관함 (접힘) | `.archive` | `#6B7280` | 끝났거나 반영 못 하는 실험(구 '추후' 목업 포함) |
 
 ## 카드 추가 방법
@@ -59,7 +59,7 @@
 
 **아이콘은 이모지 금지 — Tabler 선 아이콘**(2026-09-14 올립, 노트 배경과 어울리게 색 줄이기). `card-icon`·`sub-icon` 안에 `<i class="ti ti-이름" aria-hidden="true"></i>`. 아이콘은 회색. 색은 벤치 라벨·카드 상단 탭(벤치 색, 목업 카드는 서비스 색)·목업 카드 서비스명(HIAI 보라·CLIPO 파랑)·상태 점(초록=가동/실험, 회색=나머지)에만 쓴다 — 상단 탭까지 빼면 너무 밋밋하다는 올립 피드백(2026-09-14). 이름은 tabler.io/icons에서 outline만.
 
-**서비스 Mock-up 벤치는 새 카드를 만들지 않는다.** 해당 서비스 인덱스 카드(`div.card.index-card`) 안 `.sub-list`에 한 줄 추가:
+**서비스 Mock-up 벤치는 대표 링크만 둔다**(2026-11-06 올립). 2027에 할 일은 각 서비스 사이트맵에 넣고 허브 카드는 늘리지 않는다. 서비스명은 `CLIPO`·`GGD`(2027은 서비스명이 달라질 예정). 아래는 하위 줄 있는 인덱스 카드를 되살릴 때의 형식:
 
 ```html
 <a class="sub-link" href="URL" target="_blank" rel="noopener" data-src="clipo_mockup:output/foo.html" data-updated="YYYY-MM-DD"><span class="sub-icon"><i class="ti ti-flask" aria-hidden="true"></i></span><span class="sub-name">화면 이름</span><span class="sub-date"></span><svg class="sub-arrow" …/></a>
