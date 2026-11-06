@@ -415,6 +415,9 @@
       word-break: keep-all;
     }
     .sub-list { display: flex; flex-direction: column; flex: 1; margin: 2px -8px 0; }
+    .archive .index-card { grid-column: 1 / -1; }
+    .archive .index-card .sub-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); column-gap: 24px; }
+    .archive .index-card .sub-link + .sub-link { box-shadow: none; }
     .sub-link {
       display: flex;
       align-items: center;
